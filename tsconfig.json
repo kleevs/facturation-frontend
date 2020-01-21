@@ -15,6 +15,9 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "toastr": ["node_modules/toastr/build/toastr.min.js"]
+    },
     "lib": [
       "es2018",
       "dom"

@@ -1,14 +1,22 @@
-import { ajax } from '../../tool/ajax';
-import { IFacture } from '../../model/facture';
-import { AuthenticationData } from '../authenticationData';
+import { IFacture } from '../model/facture';
+import { AuthenticationData } from '../service/authenticationData';
+import { AjaxService } from '../service/ajax';
+import { Layout } from './layout';
+import { IRouter } from '../spi/router';
 
-export class List {
+export class List extends Layout {
 
   factures: IFacture[] = [];
 
-  constructor(auth: AuthenticationData) {
-    ajax<IFacture[]>(`/facturation`, { method: 'GET' }).then((response) => {
+  constructor(_ajaxService: AjaxService, auth: AuthenticationData, private _router: IRouter) {
+    super(_ajaxService, auth)
+    _ajaxService.ajax<IFacture[]>(`/facturation`, { method: 'GET', blockUI: true })
+    .then((response) => {
       this.factures = response.result;
     });
+  }
+
+  goTo(facture: IFacture) {
+    this._router.goTo(`/facturations/${facture.id}`);
   }
 }

@@ -1,26 +1,39 @@
 import * as $ from 'jquery';
 import { parseDate } from './date';
+import { apiDomain as url } from '../config';
+import { error } from './notify';
 
 function JSONParse(arg) {
     return JSON.parse(arg, (key, value) => parseDate(value));
 }
 
-export let apiDomain = "http://fla-virtualbox:8080";
-export function ajax<T>(url: string, options: {
+$( document ).ajaxError(( event, request, settings ) => {
+    if (request.responseJSON && request.responseJSON && request.responseJSON.message) {
+        error("Erreur", request.responseJSON.message);
+    }
+  });
+
+function _ajax<T>(url: string, options: {
     method: string;
     headers?: {[s: string]: string},
     data?: any;
+    cache?: boolean;
+}, conf: {
+    contentType?: any;
+    processData?: boolean;
 }) {
     return new Promise<{ result: T, status: string }>((resolve, reject) => {
         $.ajax({
             method: options.method,
             url: `${apiDomain}${url}`,
-            data: JSON.stringify(options.data),
+            data: options.data,
             dataType: 'json',
-            contentType: 'application/json',
+            contentType: conf.contentType,
+            processData: conf.processData,
             xhrFields: {
                 withCredentials: true
             },
+            cache: options.cache || false,
             converters: {
                 "text json": JSONParse
             },
@@ -29,13 +42,40 @@ export function ajax<T>(url: string, options: {
                 resolve({ result: data, status: xhr.status });
             }, 
             error: (xhr, textStatus) => {
-                if (xhr.status >= 200 && xhr.status < 300) {
+                var typeStatus = parseInt(`${xhr.status / 100}`) || 5;
+                if (typeStatus === 2) {
                     resolve({ result: undefined, status: xhr.status });
                 } else {
-                    reject({ result: xhr.responseText, status: xhr.status });
+                    if (typeStatus === 4) {
+                    } else if (typeStatus === 5) {
+                        error(textStatus, "Une erreur est survenue.");
+                    }
+                    var json = undefined;
+                    try {
+                        json = JSON.parse(xhr.responseText);
+                    } catch (e) {}
+                    
+                    reject({ result: json || xhr.responseText, status: xhr.status });
                 }
             }, 
           });
+    });
+}
+
+export let apiDomain = url;
+export function ajax<T>(url: string, options: {
+    method: string;
+    headers?: {[s: string]: string},
+    data?: any;
+    cache?: boolean;
+}) {
+    return  _ajax<T>(url, {
+        method: options.method,
+        headers: options.headers,
+        data: JSON.stringify(options.data),
+        cache: options.cache
+    }, {
+        contentType: 'application/json'
     });
 }
 
@@ -43,6 +83,7 @@ export function ajaxFormData<T>(url: string, options: {
     method: string;
     headers?: {[s: string]: string},
     data?: {[key: string]: any;};
+    cache?: boolean;
 }) {
     var data = new FormData();
     if (options && options.data) {
@@ -57,29 +98,13 @@ export function ajaxFormData<T>(url: string, options: {
         }
     }
 
-    return new Promise<{ result: T, status: string }>((resolve, reject) => $.ajax({
+    return  _ajax<T>(url, {
         method: options.method,
-        url: `${apiDomain}${url}`,
+        headers: options.headers,
         data: data,
-        dataType: 'json',
+        cache: options.cache
+    }, {
         contentType: false,
-        processData: false,
-        xhrFields: {
-            withCredentials: true
-        },
-        converters: {
-            "text json": JSONParse
-        },
-        crossDomain: true,
-        success: (data, textStatus, xhr) => {
-            resolve({ result: data, status: xhr.status });
-        }, 
-        error: (xhr, textStatus) => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                resolve({ result: undefined, status: xhr.status });
-            } else {
-                reject({ result: xhr.responseText, status: xhr.status });
-            }
-        }, 
-      }));
+        processData: false
+    });
 }

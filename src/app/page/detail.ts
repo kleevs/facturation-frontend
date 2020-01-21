@@ -1,12 +1,17 @@
-import { ajax, ajaxFormData } from '../../tool/ajax';
-import { IFacture } from '../../model/facture';
-import { AuthenticationData } from '../authenticationData';
-import { IService } from '../../model/service';
-import { IPaiement } from '../../model/paiement';
+import { IFacture } from '../model/facture';
+import { AuthenticationData } from '../service/authenticationData';
+import { IService } from '../model/service';
+import { IPaiement } from '../model/paiement';
 import { parseDate } from '../../tool/date';
+import { AjaxService } from '../service/ajax';
+import { success, error } from '../../tool/notify';
+import { Layout } from './layout';
+import { IRouter } from '../spi/router';
 
-export class Detail {
+export class Detail extends Layout {
   id: number = undefined;
+  numero: number;
+  numeroFacture: string;
   userDataId: number = 0;
   currentUserDataId: number = 0;
   raisonSociale = '';
@@ -39,11 +44,25 @@ export class Detail {
   get nouveauDateCreation() { return this._nouveauDateCreation && this._nouveauDateCreation.toString(); }
   set nouveauDateCreation(v: string) { this._nouveauDateCreation = parseDate(v); }
 
-  constructor(public auth: AuthenticationData, id: number) {
+  constructor(
+    _ajaxService: AjaxService, 
+    private _router: IRouter, 
+    public auth: AuthenticationData, 
+    id: number
+  ) {
+    super(_ajaxService, auth);
     this.id = id;
     var auth = this.auth;
     this.currentUserDataId = auth && auth.current && auth.current.data[0] && auth.current.data[0].id;
     this.load();
+  }
+
+  delete() {
+    this._ajaxService.ajax(`/facturation/${this.id}`, { method: 'DELETE',  blockUI: true })
+      .then(_ => success("Success", "Suppression effectué"))  
+      .then(_ => this._router.goTo('/facturations'))
+      .catch(_ => _.result.message && error("Erreur", _.result.message));
+    return false;
   }
 
   save() {
@@ -75,8 +94,16 @@ export class Detail {
       paymentOption: this.paymentOption
     };
 
-    ajax(`/facturation/${facture.id || ''}`, { method : facture.id && 'POST' || 'PUT', data: facture})
-      .then(_ => this.load());
+    this._ajaxService.ajax<number>(`/facturation/${facture.id || ''}`, { blockUI: true, method : facture.id && 'POST' || 'PUT', data: facture})
+    .then(_ => (success("Success", "Sauvegarde effectué"), _))
+    .then(_ => { 
+      if (facture.id) {
+        this.load(); 
+      } else {
+        this._router.goTo(`/facturations/${_.result}`)
+      }
+      
+    });
     return false;
   }
 
@@ -84,10 +111,10 @@ export class Detail {
     this.services = this.services.concat([{
       id: 0,
       description: '',
-      price: 0,
+      price: null,
       unite: '',
-      quantity: 0,
-      tva: 0
+      quantity: null,
+      tva: null
     }]);
   }
 
@@ -96,28 +123,32 @@ export class Detail {
   }
 
   addPaiement() {
-    ajax(`/paiement`, { method : 'PUT', data: {
+    this._ajaxService.ajax(`/paiement`, { method : 'PUT', data: {
         dateCreation: this._nouveauDateCreation, 
         montant: this.nouveauMontant,
         factureId: this.id
     }}).then(() => {
+        success("Success", "Sauvegarde effectué"); 
         this.load();
     });
   }
 
   removePaiement(paiement: IPaiement) {
-      ajax(`/paiement/${paiement.id}`, { method : 'DELETE' }).then(() => {
-          this.load();
-      });
+    this._ajaxService.ajax(`/paiement/${paiement.id}`, { method : 'DELETE' }).then(() => {
+        success("Success", "Sauvegarde effectué"); 
+        this.load();
+    });
   }
 
   load() {
     if (this.id) { 
-        ajax<IFacture>(`/facturation/${this.id}`, { method: 'GET' }).then((response) => {
+      this._ajaxService.ajax<IFacture>(`/facturation/${this.id}`, { method: 'GET', blockUI: true }).then((response) => {
           var facture = response.result;
           
           if (facture) {
             this.id = facture.id;
+            this.numero = facture.numero;
+            this.numeroFacture = facture.numeroFacture;
             this.userDataId = facture.userDataId;
             this.raisonSociale = facture.raisonSociale;
             this.lastName = facture.lastName;
@@ -155,10 +186,20 @@ export class Detail {
         documents: this.files
      };
 
-    ajaxFormData(`/piecejointe`, { method : 'PUT', data: data}).then(() => {
+     this._ajaxService.ajaxFormData(`/piecejointe`, { blockUI: true, method : 'PUT', data: data}).then(() => {
       this.clear();
+      success("Success", "Pièce jointe ajoutée"); 
       this.load();
     });
+  }
+
+  removePieceJointe(filename: string) {
+    this._ajaxService.ajaxFormData(`/facturation/${this.id}/piecejointe/${filename}`, { blockUI: true, method : 'DELETE'})
+      .then(() => {
+        this.clear();
+        success("Success", "Pièce jointe supprimée"); 
+        this.load();
+      });
   }
 
   clear() {

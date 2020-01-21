@@ -1,20 +1,25 @@
-import { ajax } from '../../tool/ajax';
+import { success } from '../../tool/notify';
+import { AjaxService } from '../service/ajax';
+import { IRouter } from '../spi/router';
 
 export class Login {
 
   email: string;
   password: string;
   
-  constructor() {
+  constructor(private _ajaxService: AjaxService, private _router: IRouter) {
   }
 
   signin() {
-    ajax('/accounts/login', { 
+    this._ajaxService.ajax('/accounts/login', { 
       method: 'POST',
+      blockUI: true,
       data: {
         login: this.email,
         password: this.password
       }
-    }).then(_ => location.href = '/');
+    })
+    .then(_ => success("Connexion réussi"))
+    .then(_ => this._router.goTo('/'));
   }
 }

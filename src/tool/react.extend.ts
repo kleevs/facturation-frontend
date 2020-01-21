@@ -1,33 +1,4 @@
 import { useState, useEffect } from 'react';
-import { startObserver, observable as obs, observable } from './observable';
-
-// export function useObserver<T>(obj: T) : T {
-//     const [, setValue] = useState(0);
-//     var state = { needUpdate: false };
-//     var end = startObserver(() => {
-//         !state.needUpdate && setTimeout(() => setValue({}));
-//         state.needUpdate = true;
-//     });
-//     useEffect((e) => {
-//         end();
-//     });
-
-//     return obj;
-// }
-
-// export function Observable(target, key, desc?) {
-//     desc = desc || {};
-//     function obs(ctx) {
-//         if (!ctx[`_obs_$${key}$`]) {
-//             ctx[`_obs_$${key}$`] = observable();
-//         }
-
-//         return  ctx[`_obs_$${key}$`];
-//     }
-//     desc.get = function () { return obs(this)(); }
-//     desc.set = function (v) { obs(this)(v); }
-//     Object.defineProperty(target, key, desc);    
-// }
 
 var currentObserver;
 function observalizer<T>(obj: T) {
@@ -75,48 +46,6 @@ export function useObserver<T>(obj: T) : T {
     return obj;
 }
 
-// function observablizer<T>(obj: T, subscribe: (listeners) => void) {
-//     if (!(<any>obj).__observed__) {
-//         var listeners: ((p: T) => void)[] = [];
-//         var callback: (p: T) => void = (p) => listeners.forEach(_ => _(p));
-
-//         for(var key in obj) {
-//              var desc = Object.getOwnPropertyDescriptor(obj, key);
-//             if (!desc || !(desc.get || desc.set)) {
-//                 (() => {
-//                     var value = obj[key];
-//                     Object.defineProperty(obj, key, {
-//                         get: () => { subscribe && subscribe(listeners); return value; },
-//                         set: (v) => (value = v, callback && callback(obj))
-//                     });
-//                 })();
-//             }
-//         }
-
-//         (<any>obj).__observed__ = true;
-//     }
-
-//     return obj;
-// }
-
-// var currentObserver = null;
-// export function useObserver<T>(obj: T) : T {
-//     const [state,] = useState(obj);
-//     const [, setValue] = useState(0);
-//     const previousObserver = currentObserver;
-//     currentObserver = () => {
-//         setValue({});
-//     };
-//     observablizer(state, (listeners) => {
-//         listeners.push(currentObserver);
-//     }); 
-//     useEffect((e) => {
-//         currentObserver = previousObserver;
-//     });
-
-//     return state;
-// }
-
 var inputFileValueDescriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
 Object.defineProperty(HTMLInputElement.prototype, "value", {
@@ -134,3 +63,42 @@ Object.defineProperty(HTMLInputElement.prototype, "value", {
         }
     }
 });
+
+// export function Router(props: {children?; history}) {
+//     // var [data, setLocation] = useState({ authData: null, location: window.location });
+
+//     // useEffect(() => { 
+//     //     var unlisten = props.history.listen((location) => {
+//     //         setLocation({ authData: null, location });
+//     //     });
+//     //     return () => {
+//     //         unlisten();
+//     //     }
+//     // });
+//     // !data.authData && props.history.isConnected().then((authData) => { 
+//     //     if (authData) {
+//     //         setLocation({ authData, location: data.location }); 
+//     //     }
+//     // });
+//     return props.children;
+// }
+
+// export function Route(props: {exact?:boolean; anonymous?:boolean; path:string; render: (props)=>any}) {
+//     var pathname = location.pathname;
+//     var regex = new RegExp(props.path.replace(/:(\w+)/, '(?<$1>[^/]+)'));
+//     var res = regex.exec(pathname);
+//     return res && props.render({ match: { params: res.groups }}) || '';
+// }
+
+// export function RouteAsync(props: {exact?:boolean; path:string; render: (props)=>Promise<any>}) {
+//     var [dom, setDom] = useState(null);
+
+//     return Route({
+//         exact: props.exact,
+//         path: props.path,
+//         render: (p) => { 
+//             props.render(p).then(_ => setDom(_)).catch(() => {});
+//             return '';
+//         }
+//     });
+// }
