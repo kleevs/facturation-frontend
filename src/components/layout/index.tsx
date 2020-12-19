@@ -23,18 +23,6 @@ export default function Layout(options: { children }) {
 
         <hr className="sidebar-divider my-0" />
 
-        {/* <li className="nav-item active">
-          <a className="nav-link" href="/">
-            <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-
-        <hr className="sidebar-divider" /> */}
-
-        {/* <div className="sidebar-heading">
-          Facturation
-        </div> */}
-
         <li className="nav-item">
           <Link className="nav-link" to={link.nouvelleFacture} aria-expanded="true">
             <i className="fa fa-plus-circle"></i>
