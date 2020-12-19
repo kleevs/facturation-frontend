@@ -2,25 +2,40 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
-    "jsx": "react",
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "types"
     ],
-    "paths": {
-      "toastr": ["node_modules/toastr/build/toastr.min.js"]
-    },
+    "paths": {},
     "lib": [
       "es2018",
       "dom"
-    ]
-  }
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
