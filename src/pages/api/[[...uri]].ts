@@ -1,4 +1,5 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const apiHost = process.env.API_HOST || 'localhost';
 const restream = function(proxyReq, req, res, options) {
   if (req.body) {
       let bodyData = JSON.stringify(req.body);
@@ -11,7 +12,7 @@ const restream = function(proxyReq, req, res, options) {
 }
 const apiPaths = {
   '/api': {
-      target: 'http://localhost', 
+      target: `http://${apiHost}`, 
       pathRewrite: {
         '^/api': '/'
       },
