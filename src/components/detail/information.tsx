@@ -1,14 +1,13 @@
 import React, { ComponentType } from 'react';
 
-export default function InformationFactory({save, preventDefault, Client, Vendeur, Echeance, Service}: {
+export default function InformationFactory({ preventDefault, Client, Vendeur, Echeance, Service}: {
     preventDefault: Tools.Mixin.preventDefault;
-    save: (v: App.Facture) => Promise<App.Facture>;
     Client: ComponentType<Components.Detail.InformationClientProps>;
     Vendeur: ComponentType<Components.Detail.InformationVendeurProps>;
     Echeance: ComponentType<Components.Detail.EcheanceProps>;
     Service: ComponentType<Components.Detail.ServiceProps>;
 }): ComponentType<Components.Detail.Props> { 
-    return function Information({ value, account, onChange, readonly }) {
+    return function Information({ value, account, onChange, readonly, save }) {
         return <form className="full-width center"  onSubmit={(e) => preventDefault(e, () => (save(value).then(onChange), false))}>
             <div className="row">
                 <div className="col-md-6"><Vendeur value={account} /></div>

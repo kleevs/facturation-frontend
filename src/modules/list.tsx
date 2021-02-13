@@ -1,9 +1,8 @@
 import ListingComponent from 'src/components/list';
-import ListingContainer from 'src/containers/list';
 import Layout from 'src/components/layout';
+import { useState } from 'react';
 
-export default function ListingModule({initialValue}: {initialValue: App.FactureLight[]}) {
-    const Content = ListingComponent({})
-    const Result = ListingContainer({Content});   
-    return <Layout><Result initialValue={initialValue}/></Layout>
+export default function ListingModule({initialValue}: {initialValue: App.FactureLight[]}) { 
+    const [state] = useState(initialValue);
+    return <Layout><ListingComponent value={state}/></Layout>
 }

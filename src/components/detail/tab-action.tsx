@@ -1,11 +1,9 @@
 import React, { ComponentType } from 'react';
 
-export default function TabActionFactory({ save, remove, pdfUriBulder }: {
+export default function TabActionFactory({ pdfUriBulder }: {
     pdfUriBulder: (id: number) => string;
-    save: (v: App.Facture) => Promise<App.Facture>;
-    remove: (v: App.Facture) => Promise<void>;
 }): ComponentType<Components.Detail.TabActionProps> { 
-    return function TabAction({ value: facture, onChange }) {
+    return function TabAction({ value: facture, onChange, save, remove }) {
         var id = facture && facture.id;
         var numeroFacture = facture.numeroFacture;
         var services = facture && facture.services || [];

@@ -1,14 +1,11 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useState } from 'react';
 
-export default function PaiementFactory({createPaiement, removePaiement, parseDate}: {
+export default function PaiementFactory({parseDate}: {
     parseDate(v: string): Date;
-    createPaiement: (id: number, v: App.IPaiement) => Promise<App.Facture>;
-    removePaiement: (id: number, v: App.IPaiement) => Promise<App.Facture>;
-}): ComponentType<Components.Detail.PaiementProps & {
-    readonly value: App.IPaiement;
-    onChange(value: App.IPaiement): void;
-}> { 
-    return function Paiement({ value, facture, onChange, onChangeFacture, readonly }) {
+}): ComponentType<Components.Detail.PaiementProps> { 
+    return function Paiement({ facture, onChangeFacture, readonly, createPaiement, removePaiement }) {
+        const [value, onChange] = useState<App.IPaiement>({ id: 0, dateCreation: new Date(), value: undefined });
+
         return <div>
             <table className="table table-striped table-bordered table-hover">
                 <thead className="thead-dark">

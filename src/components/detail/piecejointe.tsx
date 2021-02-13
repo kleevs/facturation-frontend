@@ -1,13 +1,11 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useState } from 'react';
 
-export default function PieceJointeFactory({preventDefault, save}: {
+export default function PieceJointeFactory({preventDefault}: {
     preventDefault: Tools.Mixin.preventDefault;
-    save: (v: App.Facture) => Promise<App.Facture>;
-}): ComponentType<Components.Detail.PieceJointeProps & {
-    readonly value: App.PJ[];
-    onChange(value: App.PJ[]): void;
-}> { 
-    return function PieceJointe({ value, facture, onChange, onChangeFacture, readonly }) {
+}): ComponentType<Components.Detail.PieceJointeProps> { 
+    return function PieceJointe({ facture, onChangeFacture, readonly, save }) {
+        const [value, onChange] = useState([]);
+
         return <form className="full-width center"  onSubmit={(e) => preventDefault(e, () => { save({...facture, pieceJointes: [...facture.pieceJointes, ...value]}).then(onChangeFacture) })}>
             <div className="card shadow mb-4">
                 <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
