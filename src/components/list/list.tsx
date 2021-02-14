@@ -3,10 +3,10 @@ import {useHistory} from 'react-router-dom';
 
 export default function ListComponentFactory({}: {
 }): ComponentType<Components.List.Props> { 
-    const history = useHistory();
-    const changeLocation = useCallback((href) => history.push(href), [history]);
-
     return function List({ value }: Components.List.Props) {
+        const history = useHistory();
+        const changeLocation = useCallback((href) => history.push(href), [history]);
+
         return <div className="card shadow mb-4">
             <div className="card-header py-3">
                 <h6 className="m-0 font-weight-bold text-primary">Factures enregistrées</h6>
