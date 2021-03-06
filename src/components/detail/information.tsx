@@ -28,7 +28,7 @@ export default function InformationFactory({ preventDefault, Client, Vendeur, Ec
             <hr/>
             <div>
                 <button type="button" 
-                onClick={() => onChange({ ...value, services: [...value.services, { id: 0, description: '', quantity: 0, tva: 0, unite: '', price: 0 }]})} 
+                onClick={() => onChange({ ...value, services: [...(value.services || []), { id: 0, description: '', quantity: 0, tva: 0, unite: '', price: 0 }]})} 
                 className={`${readonly && "hidden"} btn btn-primary full-width attention-hover`}>Ajouter un service</button>
             </div>
 
