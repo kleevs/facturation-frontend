@@ -11,6 +11,7 @@ import PaiementFactory from 'src/components/detail/paiement';
 import { preventDefault } from 'src/tools/mixin';
 import { parseDate } from 'src/tools/date';
 import Layout from 'src/components/layout';
+import { DateCreationField } from '../field';
 
 const pdfUriBulder = (id: number) => `/api/facturation/${id}/pdf`;
 const listPayments = [];
@@ -19,7 +20,7 @@ const listUnites = [];
 
 const Client = InformationClientFactory({});
 const Vendeur = InformationVendeurFactory({});
-const Echeance = EcheanceFactory({ parseDate, listDateEcheances, listPayments });
+const Echeance = EcheanceFactory({ DateCreationField, parseDate, listDateEcheances, listPayments });
 const Service = ServiceFactory({listUnites});
 const Racourci = tabActionFactory({pdfUriBulder});
 const Information = InformationFactory({ preventDefault, Client, Vendeur, Echeance, Service });

@@ -1,6 +1,6 @@
 import { Ajax } from 'src/tools/ajax';
-import { FactureAction } from 'src/app/action/facture';
-import { FactureService } from 'src/app/service/facture-service';
+import { FactureAction } from 'src/action/facture';
+import { FactureService } from 'src/service/facture-service';
 import { success, error } from 'src/tools/notify';
 import { useState } from 'react';
 import Detail from 'src/components/detail';

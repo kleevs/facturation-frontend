@@ -1,6 +1,7 @@
 import React, { ComponentType } from 'react';
 
-export default function EcheanceFactory({parseDate, listDateEcheances, listPayments}: {
+export default function EcheanceFactory({DateCreationField, parseDate, listDateEcheances, listPayments}: {
+    DateCreationField: ComponentType<{value:Date; onChange:(v: Date)=>void;readonly:boolean;}>
     parseDate(v: string): Date;
     listPayments: { label: string; id: number }[];
     listDateEcheances: { label: string; id: number }[];
@@ -13,11 +14,7 @@ export default function EcheanceFactory({parseDate, listDateEcheances, listPayme
                         <div className="input-group-prepend">
                             <span className="input-group-text">Date de création</span>
                             </div>
-                            <input 
-                                disabled={readonly} 
-                                value={value.dateCreation && value.dateCreation || value.dateCreation as any} 
-                                onChange={(e) => onChange({ ...value, dateCreation: parseDate(e.target.value) })} 
-                                name="dateCreation" type="text" className="form-control" placeholder="Date de création" />
+                            <DateCreationField value={value.dateCreation} onChange={(v) => onChange({...value, dateCreation: v})} readonly={readonly} />
                     </div>
                 </div>
 

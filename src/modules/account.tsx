@@ -1,7 +1,7 @@
 import AccountComponent from 'src/components/account';
 import { Ajax } from 'src/tools/ajax';
-import { AccountService } from 'src/app/service/account-service';
-import { AccountAction } from 'src/app/action/account';
+import { AccountService } from 'src/service/account-service';
+import { AccountAction } from 'src/action/account';
 import { success, error } from 'src/tools/notify';
 import { useState } from 'react';
 

@@ -1,6 +1,5 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const apiHost = process.env.API_HOST || 'localhost';
-console.log("apihost", apiHost);
 const restream = function(proxyReq, req, res, options) {
   if (req.body) {
       let bodyData = JSON.stringify(req.body);

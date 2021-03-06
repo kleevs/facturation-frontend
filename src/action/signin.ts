@@ -9,7 +9,7 @@ export class SigninAction {
             await this._signinEngine.signin(login, password);
             this._notifier.success("Success", "Connexion réussi");
         } catch (e) {
-            this._notifier.error("Erreur", e.result?.message);
+            this._notifier.error("Erreur", e?.message);
             throw e;
         }
     }

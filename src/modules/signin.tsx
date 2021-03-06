@@ -1,7 +1,7 @@
 import { Ajax } from 'src/tools/ajax';
-import { SigninService } from 'src/app/service/signin-service';
+import { SigninService } from 'src/service/signin-service';
 import { success, error } from 'src/tools/notify';
-import { SigninAction } from 'src/app/action/signin';
+import { SigninAction } from 'src/action/signin';
 import { useState } from 'react';
 import SigninComponent from 'src/components/signin';
 
