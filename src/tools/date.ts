@@ -22,9 +22,5 @@ export function dateToString(date: Date, input: string) {
 }
 
 export function formatDate(date: string) {
-    try {
-        return date?.replace(/(\d{2})[^/]?/i, '$1/');
-    } catch (e) {
-        return date;
-    }
+    return date;
 }
