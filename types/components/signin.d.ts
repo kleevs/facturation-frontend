@@ -8,7 +8,6 @@ declare namespace Components {
         export interface Props {
             readonly value: Value; 
             onChange(value: Value): void;
-            signin: App.Signin.signin;
         }
     }
 }

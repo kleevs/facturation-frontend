@@ -6,6 +6,7 @@ export { get } from './ajax/get'
 export { post } from './ajax/post'
 export { put } from './ajax/put'
 export { remove } from './ajax/remove'
+export { preventDefault } from './tool/prevent-default'
 
 export const notifyError = notifyErrorFactory({ toastr })
 export const notifySuccess = notifySuccessFactory({ toastr })
