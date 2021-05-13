@@ -1,5 +1,6 @@
 import type { App } from 'interface/src/facture'
-import type { Textfield, Dropdown, Numberfield, Textarea } from 'lib/src/main'
+import type save from '../action/save'
+import type { Textfield, Dropdown, Numberfield, Textarea, preventDefault } from 'lib/src/main'
 import React from 'react';
 import styled from 'styled-components'
 
@@ -8,6 +9,8 @@ type Deps = {
     Numberfield: typeof Numberfield;
     Dropdown: typeof Dropdown;
     Textarea: typeof Textarea;
+    preventDefault: typeof preventDefault;
+    save: (typeof save) extends (...args) => infer T ? T : never;
 }
 
 const Container = styled.div``
@@ -75,18 +78,17 @@ const ServiceContainer = styled.div`
         grid-column: 1;
     }
 `
-
+const Form = styled.form``
 const Title = styled.h1``
 const Paragraphe = styled.p``
 const Row = styled.div``
 const Cross = styled.button``
 const AddBtn = styled.button``
-
-const listUnites = [];
+const SaveBtn = styled.button``
 const dateEcheanceOptions = [];
 const modePaiements = [];
 
-export default ({Textfield, Numberfield, Dropdown, Textarea}: Deps) =>
+export default ({Textfield, Numberfield, Dropdown, Textarea, preventDefault, save}: Deps) =>
 function FactureComponent({ account, value, onChange, readonly }: {
     account: App.Account;
     value: App.Facture;
@@ -97,7 +99,7 @@ function FactureComponent({ account, value, onChange, readonly }: {
         ...value, 
         services: value.services.splice(index, 1, service)
     }) 
-    return <>
+    return <Form onSubmit={(e) => preventDefault(e, () => save(value))}>
         <VendeurContainer className="card shadow mb-4">
             <Title>Information vendeur</Title>
             <Paragraphe>{account.lastName} {account.firstName}</Paragraphe>
@@ -135,5 +137,8 @@ function FactureComponent({ account, value, onChange, readonly }: {
             <Dropdown<number> disabled={readonly} value={value.dateEcheanceOption} onChange={(dateEcheanceOption) =>  onChange({...value, dateEcheanceOption})} options={dateEcheanceOptions} />
             <Dropdown<number> disabled={readonly} value={value.paymentOption} onChange={(paymentOption) =>  onChange({...value, paymentOption})} options={modePaiements} />
         </Container>
-    </>
+        <Container>
+            <SaveBtn type='submit'>Sauvegarder</SaveBtn>
+        </Container>
+    </Form>
 }
