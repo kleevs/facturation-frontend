@@ -1,3 +1,4 @@
+import type { App } from 'interface/src/facture'
 import type { notifyError, notifySuccess } from 'lib/src/main'
 import type removePaiementServiceFactory from '../service/remove-paiement'
 import type loadServiceFactory from '../service/load'

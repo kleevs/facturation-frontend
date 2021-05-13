@@ -7,10 +7,7 @@
     "name": ""
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "precache": "sw-precache"
+    "dev": "yarn workspace server run dev"
   },
   "devDependencies": {
     "@types/node": "^14.14.2",

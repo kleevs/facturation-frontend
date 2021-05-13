@@ -1,3 +1,4 @@
+import type { App } from 'interface/src/facture'
 import type { get } from 'lib/src/main'
 
 type Deps = {

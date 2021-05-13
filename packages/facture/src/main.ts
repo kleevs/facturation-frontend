@@ -1,4 +1,7 @@
-import { post, put, get, remove as removeAjax, notifySuccess as success, notifyError as error } from 'lib/src/main'
+import { 
+    post, put, get, remove as removeAjax, notifySuccess as success, notifyError as error,
+    Textfield, Dropdown, Numberfield 
+} from 'lib/src/main'
 import createPaiementServiceFatory from './service/create-paiement'
 import removePaiementServiceFatory from './service/remove-paiement'
 import createPieceJointeServiceFatory from './service/create-piecejointe'
@@ -12,6 +15,7 @@ import removeFatory from './action/remove'
 import removePaiementFatory from './action/remove-paiement'
 import createPieceJointeFatory from './action/create-piecejointe'
 import removePieceJointeFatory from './action/remove-piecejointe'
+import factureComponentFactory from './component/facture'
 
 const loadService =  loadServiceFatory({ get })
 const saveService = saveServiceFatory({ put, post })
@@ -27,3 +31,4 @@ export const createPaiement = createPaiementFatory({ createPaiementService, load
 export const removePaiement = removePaiementFatory({ removePaiementService, loadService, success, error })
 export const createPieceJointe = createPieceJointeFatory({ createPieceJointeService, loadService, success, error })
 export const removePieceJointe = removePieceJointeFatory({ removePieceJointeService, loadService, success, error })
+export const FactureComponent = factureComponentFactory({ Textfield, Numberfield, Dropdown })

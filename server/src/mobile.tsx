@@ -1,24 +1,45 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
-import { MobileModule, Page } from 'user-manager-react/src/main'
-
-function Content() {
-    const history = useHistory();
-    const navigate = (href: string) => { 
-        history.push(href); 
-    }
-    return <Switch>
-        <Route exact path='/users' render={() => <MobileModule navigate={navigate} id={0} page={Page.Detail} />} />
-        <Route exact path='/users/:id' render={({match: { params: { id }}}) => <MobileModule navigate={navigate} id={+id} page={Page.Detail} />} />
-        <Route path="/" render={() => <MobileModule id={0} navigate={navigate} page={Page.List} />} />
-    </Switch>
-}
+import { FactureComponent } from 'facture/src/main'
 
 function App({}: {}) {
-    return <Router>
-        <Content />
-    </Router>
+    const onChange = () => {}
+    const facture = {
+        id: null,
+        numeroFacture: '',
+        raisonSociale: '',
+        lastName: '',
+        firstName: '',
+        street: '',
+        complement: '',
+        cp: '',
+        country: '',
+        city: '',
+        dateCreation: null,
+        dateEcheance: null,
+        dateEcheanceOption: null,
+        paymentOption: null,
+        services: [],
+        paiements: [],
+        pieceJointes: [],
+        isFinal: false,
+        isPaye: false
+    }
+    const account = {
+        city: '',
+        complement: '',
+        country: '',
+        firstName: '',
+        lastName: '',
+        street: '',
+        userId: '',
+        zipCode: '',
+        email: '',
+        numTva: '',
+        siret: '',
+        phone: ''
+    };
+    return <FactureComponent account={account} value={facture} onChange={onChange} readonly={false} />
 }
 
 render(<App/>, document.getElementById("app"));

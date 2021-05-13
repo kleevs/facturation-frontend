@@ -1,3 +1,4 @@
+import type { App } from 'interface/src/facture'
 import type { notifyError, notifySuccess } from 'lib/src/main'
 import type removePieceJointeServiceFactory from '../service/remove-piecejointe'
 import type loadServiceFactory from '../service/load'

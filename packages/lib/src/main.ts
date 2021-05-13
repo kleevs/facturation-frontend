@@ -1,6 +1,10 @@
-import * as toastr from 'toastr';
+import toastr from 'toastr';
 import notifyErrorFactory from './notify/error'
 import notifySuccessFactory from './notify/success'
+import TextfieldFactory from './ui/textfield'
+import NumberfieldFactory from './ui/numberfield'
+import DropdownFactory from './ui/dropdown'
+import DatefieldFactory from './ui/datefield'
 
 export { get } from './ajax/get'
 export { post } from './ajax/post'
@@ -10,6 +14,10 @@ export { preventDefault } from './tool/prevent-default'
 
 export const notifyError = notifyErrorFactory({ toastr })
 export const notifySuccess = notifySuccessFactory({ toastr })
+export const Textfield = TextfieldFactory()
+export const Numberfield = NumberfieldFactory()
+export const Dropdown = DropdownFactory()
+export const Datefield = DatefieldFactory()
 
 toastr.options = {
     "closeButton": false,
