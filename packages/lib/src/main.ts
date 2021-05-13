@@ -5,19 +5,23 @@ import TextfieldFactory from './ui/textfield'
 import NumberfieldFactory from './ui/numberfield'
 import DropdownFactory from './ui/dropdown'
 import DatefieldFactory from './ui/datefield'
+import TextareaFactory from './ui/textarea'
+import { parseDate, dateToString, formatDate } from './tool/date'
 
 export { get } from './ajax/get'
 export { post } from './ajax/post'
 export { put } from './ajax/put'
 export { remove } from './ajax/remove'
 export { preventDefault } from './tool/prevent-default'
+export { parseDate, dateToString, formatDate }
 
 export const notifyError = notifyErrorFactory({ toastr })
 export const notifySuccess = notifySuccessFactory({ toastr })
 export const Textfield = TextfieldFactory()
 export const Numberfield = NumberfieldFactory()
 export const Dropdown = DropdownFactory()
-export const Datefield = DatefieldFactory()
+export const Datefield = DatefieldFactory({ parseDate, dateToString })
+export const Textarea = TextareaFactory()
 
 toastr.options = {
     "closeButton": false,

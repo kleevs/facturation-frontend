@@ -1,11 +1,13 @@
 import React from 'react'
 
 export default () =>
-function Dropdown<T>({}: {
-    disabled?: boolean;
+function Dropdown<T>({value, onChange, ...props}: {
     value: T;
     onChange: (v: T) => void;
-    options: T[]
+    options: T[];
+    placeholder?: string;
+    className?: string;
+    disabled?: boolean;
 }) {
-    return <select></select>
+    return <select {...props}></select>
 }

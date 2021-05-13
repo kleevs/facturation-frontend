@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import { FactureComponent } from 'facture/src/main'
 
 function App({}: {}) {
-    const onChange = () => {}
-    const facture = {
+    const [facture, onChange] = useState({
         id: null,
         numeroFacture: '',
         raisonSociale: '',
@@ -24,20 +23,21 @@ function App({}: {}) {
         pieceJointes: [],
         isFinal: false,
         isPaye: false
-    }
+    });
+
     const account = {
-        city: '',
+        city: 'Ville',
         complement: '',
-        country: '',
-        firstName: '',
-        lastName: '',
-        street: '',
+        country: 'France',
+        firstName: 'John',
+        lastName: 'Doe',
+        street: '1 rue du paradis',
         userId: '',
-        zipCode: '',
-        email: '',
-        numTva: '',
-        siret: '',
-        phone: ''
+        zipCode: '75001',
+        email: 'john.doe@mail.com',
+        numTva: '987654321',
+        siret: '12332198700013',
+        phone: '0912345634'
     };
     return <FactureComponent account={account} value={facture} onChange={onChange} readonly={false} />
 }
