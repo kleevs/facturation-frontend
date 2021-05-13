@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default () =>
-function Dropdown<T>({value, onChange, ...props}: {
+function Dropdown<T extends { label: string; id: number }>({value, onChange, options, ...props}: {
     value: T;
     onChange: (v: T) => void;
     options: T[];
@@ -9,5 +9,7 @@ function Dropdown<T>({value, onChange, ...props}: {
     className?: string;
     disabled?: boolean;
 }) {
-    return <select {...props}></select>
+    return <select {...props} onChange={(e) => onChange(options.find(_ => _.id === +e.target.value))}>
+        {options.map(_ => <option value={_.id}>{_.label}</option>)}
+    </select>
 }

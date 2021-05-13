@@ -13,7 +13,28 @@ type Deps = {
     save: (typeof save) extends (...args) => infer T ? T : never;
 }
 
-const Container = styled.div``
+const ServicesContainer = styled.div`
+    display: grid;
+    grid-gap: 10px;
+`
+const SubmitContainer = styled.div``
+const EcheanceContainer = styled.div`
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+
+    [data-id=title] {
+        grid-column: 1 / 3;
+    }
+
+    [data-id=echeance] {
+        grid-column: 1;
+    }
+
+    [data-id=paiement] {
+        grid-column: 2;
+    }
+`
 const VendeurContainer = styled.div`
     p {
         margin: 0;
@@ -78,15 +99,46 @@ const ServiceContainer = styled.div`
         grid-column: 1;
     }
 `
-const Form = styled.form``
+const Form = styled.form`
+    padding: 1.2rem;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+
+    ${VendeurContainer} {
+        grid-column: 1;
+    }
+
+    ${ClientContainer} {
+        grid-column: 2;
+    }
+
+    ${SubmitContainer} {
+        grid-column: 1 / 3;
+    }
+`
 const Title = styled.h1``
 const Paragraphe = styled.p``
 const Row = styled.div``
 const Cross = styled.button``
 const AddBtn = styled.button``
-const SaveBtn = styled.button``
-const dateEcheanceOptions = [];
-const modePaiements = [];
+const SaveBtn = styled.button`
+    width: 100%;
+`
+const dateEcheanceOptions = [
+    { id: 1, label: "30 jours après l'envoi de la facture" },
+    { id: 2, label: "60 jours après l'envoi de la facture" },
+    { id: 3, label: "45 jours + fin du mois entamé" },
+    { id: 4, label: "Paiement à la réception de la facture" },
+    { id: 5, label: "Date personnalisée" },
+];
+const modePaiements = [
+    {id: 1, label: "Chèque"},
+    {id: 2, label: "Virement"},
+    {id: 3, label: "Espèce"},
+    {id: 4, label: "CB"},
+    {id: 5, label: "Autre"}
+];
 
 export default ({Textfield, Numberfield, Dropdown, Textarea, preventDefault, save}: Deps) =>
 function FactureComponent({ account, value, onChange, readonly }: {
@@ -121,24 +173,24 @@ function FactureComponent({ account, value, onChange, readonly }: {
             <Textfield data-id='city' placeholder='Ville' disabled={readonly} value={value.city} onChange={(city) => onChange({ ...value, city })} />
             <Textfield data-id='country' placeholder='Pays' disabled={readonly} value={value.country} onChange={(country) => onChange({ ...value, country })} />
         </ClientContainer>
-        <Container>
-            <Title>Services</Title>
-            <AddBtn onClick={() => onChange({...value, services: [...value.services, {} as App.IService]})} />
+        <ServicesContainer>
+            <Title>Services / Marchandises</Title>
+            <AddBtn onClick={() => onChange({...value, services: [...value.services, {} as App.IService]})}>Ajouter un service / marchandise</AddBtn>
             {value.services.map((service, i) => <ServiceContainer key={i}>
-                <Cross data-id='remove' type='button' onClick={() => onChange({...value, services: value.services.filter(_ => _ !== service)})} />
+                <Cross data-id='remove' type='button' onClick={() => onChange({...value, services: value.services.filter(_ => _ !== service)})}>Supprimer</Cross>
                 <Textarea data-id='description' placeholder="Description" disabled={readonly} value={service.description} onChange={(description) => onChangeService(i, { ...service, description })} />
                 <Numberfield data-id='price' placeholder="Prix à l'unité (€)" disabled={readonly} value={service.price} onChange={(price) => onChangeService(i, { ...service, price })} />
-                <Numberfield data-id='tva' placeholder='Tva (%)' disabled={readonly} value={service.tva} onChange={(tva) => onChangeService(i, { ...service, tva })} />
                 <Numberfield data-id='quantity' placeholder='Quantité' disabled={readonly} value={service.quantity} onChange={(quantity) => onChangeService(i, { ...service, quantity })} />
+                <Numberfield data-id='tva' placeholder='Tva (%)' disabled={readonly} value={service.tva} onChange={(tva) => onChangeService(i, { ...service, tva })} />
             </ServiceContainer>)}
-        </Container>
-        <Container>
-            <Title>Echeance</Title>
-            <Dropdown<number> disabled={readonly} value={value.dateEcheanceOption} onChange={(dateEcheanceOption) =>  onChange({...value, dateEcheanceOption})} options={dateEcheanceOptions} />
-            <Dropdown<number> disabled={readonly} value={value.paymentOption} onChange={(paymentOption) =>  onChange({...value, paymentOption})} options={modePaiements} />
-        </Container>
-        <Container>
+        </ServicesContainer>
+        <EcheanceContainer>
+            <Title data-id='title'>Echeance</Title>
+            <Dropdown<typeof dateEcheanceOptions[0]> data-id='echeance' disabled={readonly} value={dateEcheanceOptions.find(_ => _.id === value.dateEcheanceOption)} onChange={({ id: dateEcheanceOption }) =>  onChange({...value, dateEcheanceOption})} options={dateEcheanceOptions} />
+            <Dropdown<typeof modePaiements[0]> data-id='paiement' disabled={readonly} value={modePaiements.find(_ => _.id === value.paymentOption)} onChange={({ id: paymentOption }) =>  onChange({...value, paymentOption})} options={modePaiements} />
+        </EcheanceContainer>
+        <SubmitContainer>
             <SaveBtn type='submit'>Sauvegarder</SaveBtn>
-        </Container>
+        </SubmitContainer>
     </Form>
 }
