@@ -7,6 +7,7 @@ function Textfield({value, onChange, ...props}: {
     placeholder?: string;
     className?: string;
     disabled?: boolean;
+    type?: string;
 }) {
     return <input {...props} value={value} onChange={(e) => onChange(e.target.value)} />
 }
