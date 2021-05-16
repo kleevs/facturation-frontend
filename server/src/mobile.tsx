@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { render } from "react-dom";
-import { FactureComponent } from 'facture/src/main'
+import { AppFactureComponent } from 'app/src/main'
 import { SigninComponent } from 'auth/src/main'
 
 function App({}: {}) {
@@ -41,7 +41,7 @@ function App({}: {}) {
         siret: '12332198700013',
         phone: '0912345634'
     };
-    return <FactureComponent slide={slide} onSlide={onSlide} account={account} value={facture} onChange={onChange} readonly={false} />
+    return <AppFactureComponent slide={slide} onSlide={onSlide} account={account} value={facture} onChange={onChange} readonly={false} />
 }
 
 // function App() {

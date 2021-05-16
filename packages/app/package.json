@@ -6,7 +6,8 @@
     "name": ""
   },
   "dependencies": {
-    "lib": "^0.0.1"
+    "lib": "^0.0.1",
+    "facture": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.2",
