@@ -13,39 +13,29 @@ type Deps = {
     save: (typeof save) extends (...args) => infer T ? T : never;
 }
 
-const Slide = styled.section`
+const Slide = styled.form`
     padding: 1.2rem;
     height: 100%;
     width: 33.33%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+`
+const Body = styled.div`
 `
 const ServicesContainer = styled(Slide)`
-    display: grid;
-    grid-gap: 10px;
+    ${Body} {
+        flex-grow: 1;
+    }
 `
-// const SubmitContainer = styled.div``
 const EcheanceContainer = styled(Slide)`
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(2, 1fr);
+    ${Body} {
+        flex-grow: 1;
 
-    [data-id=title] {
-        grid-column: 1 / 3;
+        select {
+            width: 100%;
+        }
     }
-
-    [data-id=echeance] {
-        grid-column: 1;
-    }
-
-    [data-id=paiement] {
-        grid-column: 2;
-    }
-
-    [data-id=submit] {
-        grid-column: 1 / 3;
-    }
-`
-const SlideInformation = styled(Slide)`
 `
 
 const VendeurContainer = styled.div`
@@ -95,6 +85,11 @@ const ClientContainer = styled.div`
         grid-column: 1 / 7;
     }
 `
+const SlideInformation = styled(Slide)`
+    ${ClientContainer} {
+        flex-grow: 1;
+    }
+`
 const ServiceContainer = styled.div`
     display: grid;
     grid-gap: 10px;
@@ -112,13 +107,13 @@ const ServiceContainer = styled.div`
         grid-column: 1;
     }
 `
-const Form = styled.form`
+const Container = styled.div`
     box-sizing: border-box;
     height: 100%;
     overflow: hidden;
     position: relative;
 `
-const Container = styled.div`
+const SlideWrapper = styled.div`
     display: flex;
     height: 100%;
     width: 300%;
@@ -132,9 +127,30 @@ const Title = styled.h1``
 const Paragraphe = styled.p``
 const Row = styled.div``
 const Cross = styled.button``
-const AddBtn = styled.button``
+const AddBtn = styled.button`
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 50vh;
+    border: 2px solid transparent;
+    padding: 1rem 5rem;
+`
 const SaveBtn = styled.button`
     width: 100%;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 50vh;
+    border: 2px solid transparent;
+    padding: 1rem 5rem;
+`
+const Footer = styled.div`
 `
 const dateEcheanceOptions = [
     { id: 1, label: "30 jours après l'envoi de la facture" },
@@ -152,20 +168,22 @@ const modePaiements = [
 ];
 
 export default ({Textfield, Numberfield, Dropdown, Textarea, preventDefault, save}: Deps) =>
-function FactureComponent({ account, value, onChange, readonly }: {
+function FactureComponent({ account, value, onChange, readonly, slide, onSlide }: {
     account: App.Account;
     value: App.Facture;
     onChange: (v: App.Facture) => void;
     readonly: boolean;
+    slide: number;
+    onSlide: (v: number) => void;
 }) {
     const onChangeService = (index: number, service: App.IService) => onChange({
         ...value, 
         services: value.services.splice(index, 1, service)
     }) 
-    return <Form onSubmit={(e) => preventDefault(e, () => save(value))}>
-        <Container slide={0}>
-            <SlideInformation>
-                <VendeurContainer className="card shadow mb-4">
+    return <Container>
+        <SlideWrapper slide={slide}>
+            <SlideInformation onSubmit={(e) => preventDefault(e, () => onSlide(1))}>
+                <VendeurContainer>
                     <Title>Vos informations</Title>
                     <Paragraphe>{account.lastName} {account.firstName}</Paragraphe>
                     <Paragraphe>{account.street} {account.complement}</Paragraphe>
@@ -186,24 +204,36 @@ function FactureComponent({ account, value, onChange, readonly }: {
                     <Textfield data-id='city' placeholder='Ville' disabled={readonly} value={value.city} onChange={(city) => onChange({ ...value, city })} />
                     <Textfield data-id='country' placeholder='Pays' disabled={readonly} value={value.country} onChange={(country) => onChange({ ...value, country })} />
                 </ClientContainer>
+                <Footer>
+                    <SaveBtn type='submit'>Suivant</SaveBtn>
+                </Footer>
             </SlideInformation>
-            <ServicesContainer>
+            <ServicesContainer onSubmit={(e) => preventDefault(e, () => onSlide(2))}>
                 <Title>Services / Marchandises</Title>
-                <AddBtn onClick={() => onChange({...value, services: [...value.services, {} as App.IService]})}>Ajouter un service / marchandise</AddBtn>
-                {value.services.map((service, i) => <ServiceContainer key={i}>
-                    <Cross data-id='remove' type='button' onClick={() => onChange({...value, services: value.services.filter(_ => _ !== service)})}>Supprimer</Cross>
-                    <Textarea data-id='description' placeholder="Description" disabled={readonly} value={service.description} onChange={(description) => onChangeService(i, { ...service, description })} />
-                    <Numberfield data-id='price' placeholder="Prix à l'unité (€)" disabled={readonly} value={service.price} onChange={(price) => onChangeService(i, { ...service, price })} />
-                    <Numberfield data-id='quantity' placeholder='Quantité' disabled={readonly} value={service.quantity} onChange={(quantity) => onChangeService(i, { ...service, quantity })} />
-                    <Numberfield data-id='tva' placeholder='Tva (%)' disabled={readonly} value={service.tva} onChange={(tva) => onChangeService(i, { ...service, tva })} />
-                </ServiceContainer>)}
+                <AddBtn type='button' onClick={() => onChange({...value, services: [...value.services, {} as App.IService]})}>Ajouter un service / marchandise</AddBtn>
+                <Body>
+                    {value.services.map((service, i) => <ServiceContainer key={i}>
+                        <Cross data-id='remove' type='button' onClick={() => onChange({...value, services: value.services.filter(_ => _ !== service)})}>Supprimer</Cross>
+                        <Textarea data-id='description' placeholder="Description" disabled={readonly} value={service.description} onChange={(description) => onChangeService(i, { ...service, description })} />
+                        <Numberfield data-id='price' placeholder="Prix à l'unité (€)" disabled={readonly} value={service.price} onChange={(price) => onChangeService(i, { ...service, price })} />
+                        <Numberfield data-id='quantity' placeholder='Quantité' disabled={readonly} value={service.quantity} onChange={(quantity) => onChangeService(i, { ...service, quantity })} />
+                        <Numberfield data-id='tva' placeholder='Tva (%)' disabled={readonly} value={service.tva} onChange={(tva) => onChangeService(i, { ...service, tva })} />
+                    </ServiceContainer>)}
+                </Body>
+                <Footer>
+                    <SaveBtn type='submit'>Suivant</SaveBtn>
+                </Footer>
             </ServicesContainer>
-            <EcheanceContainer>
+            <EcheanceContainer onSubmit={(e) => preventDefault(e, () => save(value))}>
                 <Title data-id='title'>Echeance</Title>
-                <Dropdown<typeof dateEcheanceOptions[0]> data-id='echeance' disabled={readonly} value={dateEcheanceOptions.find(_ => _.id === value.dateEcheanceOption)} onChange={({ id: dateEcheanceOption }) =>  onChange({...value, dateEcheanceOption})} options={dateEcheanceOptions} />
-                <Dropdown<typeof modePaiements[0]> data-id='paiement' disabled={readonly} value={modePaiements.find(_ => _.id === value.paymentOption)} onChange={({ id: paymentOption }) =>  onChange({...value, paymentOption})} options={modePaiements} />
-                <SaveBtn data-id='submit' type='submit'>Sauvegarder</SaveBtn>
+                <Body>
+                    <Dropdown<typeof dateEcheanceOptions[0]> data-id='echeance' disabled={readonly} value={dateEcheanceOptions.find(_ => _.id === value.dateEcheanceOption)} onChange={({ id: dateEcheanceOption }) =>  onChange({...value, dateEcheanceOption})} options={dateEcheanceOptions} />
+                    <Dropdown<typeof modePaiements[0]> data-id='paiement' disabled={readonly} value={modePaiements.find(_ => _.id === value.paymentOption)} onChange={({ id: paymentOption }) =>  onChange({...value, paymentOption})} options={modePaiements} />
+                </Body>
+                <Footer>
+                    <SaveBtn data-id='submit' type='submit'>Sauvegarder</SaveBtn>
+                </Footer>
             </EcheanceContainer>
-        </Container>
-    </Form>
+        </SlideWrapper>
+    </Container>
 }

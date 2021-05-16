@@ -4,6 +4,7 @@ import { FactureComponent } from 'facture/src/main'
 import { SigninComponent } from 'auth/src/main'
 
 function App({}: {}) {
+    const [slide, onSlide] = useState(0)
     const [facture, onChange] = useState({
         id: null,
         numeroFacture: '',
@@ -40,7 +41,7 @@ function App({}: {}) {
         siret: '12332198700013',
         phone: '0912345634'
     };
-    return <FactureComponent account={account} value={facture} onChange={onChange} readonly={false} />
+    return <FactureComponent slide={slide} onSlide={onSlide} account={account} value={facture} onChange={onChange} readonly={false} />
 }
 
 // function App() {
