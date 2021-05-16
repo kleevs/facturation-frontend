@@ -1,15 +1,16 @@
 import type { App } from 'interface/src/facture'
 import type save from '../action/save'
-import type { Textfield, Dropdown, Numberfield, Textarea, preventDefault } from 'lib/src/main'
-import React from 'react';
+import type Service from './service'
+import type { Textfield, Dropdown, preventDefault, Modal } from 'lib/src/main'
+import React, { useState } from 'react';
 import styled from 'styled-components'
 
 type Deps = {
     Textfield: typeof Textfield;
-    Numberfield: typeof Numberfield;
     Dropdown: typeof Dropdown;
-    Textarea: typeof Textarea;
     preventDefault: typeof preventDefault;
+    Modal: typeof Modal;
+    Service: (typeof Service) extends (...args) => infer T ? T : never;
     save: (typeof save) extends (...args) => infer T ? T : never;
 }
 
@@ -152,6 +153,7 @@ const SaveBtn = styled.button`
 `
 const Footer = styled.div`
 `
+const ServiceInfo = styled.div``
 const dateEcheanceOptions = [
     { id: 1, label: "30 jours après l'envoi de la facture" },
     { id: 2, label: "60 jours après l'envoi de la facture" },
@@ -167,7 +169,7 @@ const modePaiements = [
     {id: 5, label: "Autre"}
 ];
 
-export default ({Textfield, Numberfield, Dropdown, Textarea, preventDefault, save}: Deps) =>
+export default ({Textfield, Dropdown, Modal, Service, preventDefault, save}: Deps) =>
 function FactureComponent({ account, value, onChange, readonly, slide, onSlide }: {
     account: App.Account;
     value: App.Facture;
@@ -176,11 +178,25 @@ function FactureComponent({ account, value, onChange, readonly, slide, onSlide }
     slide: number;
     onSlide: (v: number) => void;
 }) {
-    const onChangeService = (index: number, service: App.IService) => onChange({
-        ...value, 
-        services: value.services.splice(index, 1, service)
-    }) 
+    const [serviceModal, setServiceModal] = useState<{ service: App.IService, index: number }>(null);
     return <Container>
+        <Modal isOpened={!!serviceModal}>
+            <Service 
+                initial={serviceModal?.service} 
+                onCancel={() => setServiceModal(null)}
+                onAdd={(service) => { 
+                    if (serviceModal.index === -1) {
+                        onChange({...value, services: [...value.services, service]})
+                    } else {
+                        const services = service && [...value.services] || value.services.filter((_,i) => i !== serviceModal.index);
+                        if (service) {
+                            services[serviceModal.index] = service;
+                        }
+                        onChange({...value, services: services})
+                    }
+                    setServiceModal(null)
+            }} />
+        </Modal>
         <SlideWrapper slide={slide}>
             <SlideInformation onSubmit={(e) => preventDefault(e, () => onSlide(1))}>
                 <VendeurContainer>
@@ -210,14 +226,13 @@ function FactureComponent({ account, value, onChange, readonly, slide, onSlide }
             </SlideInformation>
             <ServicesContainer onSubmit={(e) => preventDefault(e, () => onSlide(2))}>
                 <Title>Services / Marchandises</Title>
-                <AddBtn type='button' onClick={() => onChange({...value, services: [...value.services, {} as App.IService]})}>Ajouter un service / marchandise</AddBtn>
+                <AddBtn type='button' onClick={() => setServiceModal({ service: {} as App.IService, index: -1 })}>Ajouter un service / marchandise</AddBtn>
                 <Body>
-                    {value.services.map((service, i) => <ServiceContainer key={i}>
-                        <Cross data-id='remove' type='button' onClick={() => onChange({...value, services: value.services.filter(_ => _ !== service)})}>Supprimer</Cross>
-                        <Textarea data-id='description' placeholder="Description" disabled={readonly} value={service.description} onChange={(description) => onChangeService(i, { ...service, description })} />
-                        <Numberfield data-id='price' placeholder="Prix à l'unité (€)" disabled={readonly} value={service.price} onChange={(price) => onChangeService(i, { ...service, price })} />
-                        <Numberfield data-id='quantity' placeholder='Quantité' disabled={readonly} value={service.quantity} onChange={(quantity) => onChangeService(i, { ...service, quantity })} />
-                        <Numberfield data-id='tva' placeholder='Tva (%)' disabled={readonly} value={service.tva} onChange={(tva) => onChangeService(i, { ...service, tva })} />
+                    {value.services.map((service, i) => <ServiceContainer key={i} onClick={() => setServiceModal({ service, index: i })}>
+                        <ServiceInfo data-id='description'>Description : <p>{service.description}</p></ServiceInfo>
+                        <ServiceInfo data-id='price'>Prix à l'unité (€) : {service.price}</ServiceInfo>
+                        <ServiceInfo data-id='quantity'>Quantité : {service.quantity}</ServiceInfo>
+                        <ServiceInfo data-id='tva'>Tva (%) : {service.tva}</ServiceInfo>
                     </ServiceContainer>)}
                 </Body>
                 <Footer>

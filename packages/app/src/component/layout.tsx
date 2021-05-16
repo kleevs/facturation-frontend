@@ -19,6 +19,7 @@ function Layout({onBack, children}: {
     return <Container>
         <Header>
             {onBack && <button type='button' onClick={onBack}>Retour</button>}
+            mFacture
         </Header>
         <Body>
             {children}

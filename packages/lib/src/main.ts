@@ -6,6 +6,7 @@ import NumberfieldFactory from './ui/numberfield'
 import DropdownFactory from './ui/dropdown'
 import DatefieldFactory from './ui/datefield'
 import TextareaFactory from './ui/textarea'
+import ModalFactory from './ui/modal'
 import { parseDate, dateToString, formatDate } from './tool/date'
 
 export { get } from './ajax/get'
@@ -22,6 +23,7 @@ export const Numberfield = NumberfieldFactory()
 export const Dropdown = DropdownFactory()
 export const Datefield = DatefieldFactory({ parseDate, dateToString })
 export const Textarea = TextareaFactory()
+export const Modal = ModalFactory({ modalContainer: () => document.body })
 
 toastr.options = {
     "closeButton": false,
