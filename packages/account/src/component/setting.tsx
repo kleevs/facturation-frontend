@@ -1,4 +1,5 @@
-import type { preventDefault } from 'lib/src/main'
+import type { App } from 'interface/src/facture'
+import type { preventDefault } from 'lib'
 import type save from '../service/save'
 import React from 'react';
 
@@ -8,7 +9,10 @@ type Deps = {
 }
 
 export default ({preventDefault, save}: Deps) =>
-function AccountComponent({ value: account, onChange }: Components.Account.Props) {
+function AccountComponent({ value: account, onChange }: {
+    readonly value: App.Account;
+    onChange: (value: App.Account)=>void;
+}) {
     return <form className="container-fluid" onSubmit={(e) => preventDefault(e, () => save({...account}))}>
         <div className="row">
             <div className="col-md-6 form-group">

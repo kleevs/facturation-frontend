@@ -8,7 +8,6 @@ import DatefieldFactory from './ui/datefield'
 import TextareaFactory from './ui/textarea'
 import ModalFactory from './ui/modal'
 import { parseDate, dateToString, formatDate } from './tool/date'
-
 export { get } from './ajax/get'
 export { post } from './ajax/post'
 export { put } from './ajax/put'

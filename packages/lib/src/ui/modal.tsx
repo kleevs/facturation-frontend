@@ -1,7 +1,6 @@
 import React from 'react'
 import { createPortal } from 'react-dom';
 import styled from 'styled-components'
-
 const Overlay = styled.div`
     position: absolute;
     top: 0;

@@ -1,4 +1,5 @@
-import type { put } from 'lib/src/main'
+import type { App } from 'interface/src/facture'
+import type { put } from 'lib'
 
 type Deps = {
   put: typeof put;
