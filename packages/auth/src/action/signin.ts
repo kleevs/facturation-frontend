@@ -1,4 +1,4 @@
-import type { notifyError, notifySuccess } from 'lib/src/main'
+import type { notifyError, notifySuccess } from 'lib'
 import type signinServiceFactory from '../service/signin'
 
 type Deps = {

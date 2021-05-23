@@ -1,4 +1,4 @@
-import type { post } from 'lib/src/main'
+import type { post } from 'lib'
 
 type Deps = {
   post: typeof post;

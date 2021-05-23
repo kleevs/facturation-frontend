@@ -1,11 +1,11 @@
-import type { App } from 'interface/src/facture'
-import type { notifyError, notifySuccess } from 'lib/src/main'
+import type { App } from 'interface'
+import type { notifyError, notifySuccess } from 'lib'
 import type removePieceJointeServiceFactory from '../service/remove-piecejointe'
 import type loadServiceFactory from '../service/load'
 
 type Deps = {
-    removePieceJointeService: (typeof removePieceJointeServiceFactory) extends (...args) => infer T ? T : typeof removePieceJointeServiceFactory;
-    loadService: (typeof loadServiceFactory) extends (...args) => infer T ? T : typeof loadServiceFactory;
+    removePieceJointeService: ReturnType<typeof removePieceJointeServiceFactory>;
+    loadService: ReturnType<typeof loadServiceFactory>;
     success: typeof notifySuccess;
     error: typeof notifyError;
 }

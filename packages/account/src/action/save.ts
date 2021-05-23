@@ -1,4 +1,4 @@
-import type { App } from 'interface/src/facture'
+import type { App } from 'interface'
 import type { notifyError, notifySuccess } from 'lib'
 import type saveServiceFactory from '../service/save'
 

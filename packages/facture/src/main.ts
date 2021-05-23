@@ -1,7 +1,7 @@
 import { 
     post, put, get, remove as removeAjax, notifySuccess as success, notifyError as error,
     Textfield, Dropdown, Numberfield, Textarea, preventDefault, Modal
-} from 'lib/src/main'
+} from 'lib'
 import createPaiementServiceFatory from './service/create-paiement'
 import removePaiementServiceFatory from './service/remove-paiement'
 import createPieceJointeServiceFatory from './service/create-piecejointe'

@@ -1,4 +1,4 @@
-import type * as toastr from 'toastr';
+import type toastr from 'toastr';
 
 type Deps = {
     toastr: typeof toastr 

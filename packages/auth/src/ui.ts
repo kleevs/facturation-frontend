@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Textfield } from 'lib/src/main'
+import { Textfield } from 'lib'
 
 
 export const SigninTextfield = styled(Textfield)`

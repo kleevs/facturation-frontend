@@ -1,5 +1,5 @@
+import type { createPortal } from 'react-dom'
 import React from 'react'
-import { createPortal } from 'react-dom';
 import styled from 'styled-components'
 const Overlay = styled.div`
     position: absolute;
@@ -19,10 +19,11 @@ const Dialog = styled.div`
 `
 
 type Deps = {
+    createPortal: typeof createPortal;
     modalContainer: () => HTMLElement;
 }
 
-export default ({modalContainer}: Deps) =>
+export default ({modalContainer, createPortal}: Deps) =>
 function Modal({isOpened, children, ...props}: {
     isOpened: boolean;
     children: unknown;
@@ -32,5 +33,5 @@ function Modal({isOpened, children, ...props}: {
         <Dialog {...props}>
             {children}
         </Dialog>
-    </Overlay>, modalContainer()) || ''
+    </Overlay>, modalContainer()) || <></>
 }

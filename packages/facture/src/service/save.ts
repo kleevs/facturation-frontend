@@ -1,5 +1,5 @@
-import type { App } from 'interface/src/facture'
-import type { post, put } from 'lib/src/main'
+import type { App } from 'interface'
+import type { post, put } from 'lib'
 
 type Deps = {
   post: typeof post;

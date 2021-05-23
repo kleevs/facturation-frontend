@@ -1,6 +1,11 @@
-import axios from 'axios';
+import type axios from 'axios';
 
-export function get<T>(uri: string): Promise<T> {
+type Deps = {
+    axios: typeof axios;
+}
+
+export default ({axios}: Deps) => 
+function get<T>(uri: string): Promise<T> {
     return axios.get(uri)
     .catch(e => { throw e?.response?.data; })
     .then(_ => _.data);

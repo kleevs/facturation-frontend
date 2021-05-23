@@ -1,7 +1,7 @@
-import type { App } from 'interface/src/facture'
+import type { App } from 'interface'
 import type save from '../action/save'
 import type Service from './service'
-import type { Textfield, Dropdown, preventDefault, Modal } from 'lib/src/main'
+import type { Textfield, Dropdown, preventDefault, Modal } from 'lib'
 import React, { useState } from 'react';
 import styled from 'styled-components'
 

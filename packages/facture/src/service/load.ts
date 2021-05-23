@@ -1,5 +1,5 @@
-import type { App } from 'interface/src/facture'
-import type { get } from 'lib/src/main'
+import type { App } from 'interface'
+import type { get } from 'lib'
 
 type Deps = {
   get: typeof get;

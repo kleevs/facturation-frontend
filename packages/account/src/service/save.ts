@@ -1,4 +1,4 @@
-import type { App } from 'interface/src/facture'
+import type { App } from 'interface'
 import type { put } from 'lib'
 
 type Deps = {

@@ -1,4 +1,4 @@
-import { post, notifySuccess as success, notifyError as error, preventDefault } from 'lib/src/main'
+import { post, notifySuccess as success, notifyError as error, preventDefault } from 'lib'
 import { SigninTextfield } from './ui'
 import signinServiceFactory from './service/signin'
 import signinFactory from './action/signin'

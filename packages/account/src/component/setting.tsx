@@ -1,4 +1,4 @@
-import type { App } from 'interface/src/facture'
+import type { App } from 'interface'
 import type { preventDefault } from 'lib'
 import type save from '../service/save'
 import React from 'react';

@@ -1,9 +1,9 @@
-import type { App } from 'interface/src/facture'
-import type { notifyError, notifySuccess } from 'lib/src/main'
+import type { App } from 'interface'
+import type { notifyError, notifySuccess } from 'lib'
 import type removeServiceFactory from '../service/remove'
 
 type Deps = {
-    removeService: (typeof removeServiceFactory) extends (...args) => infer T ? T : typeof removeServiceFactory;
+    removeService: ReturnType<typeof removeServiceFactory>;
     success: typeof notifySuccess;
     error: typeof notifyError;
 }

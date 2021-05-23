@@ -1,4 +1,4 @@
-import type { preventDefault } from 'lib/src/main'
+import type { preventDefault } from 'lib'
 import type { SigninTextfield } from '../ui'
 import type signin from '../action/signin'
 import React from 'react';

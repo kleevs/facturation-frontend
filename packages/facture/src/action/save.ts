@@ -1,11 +1,11 @@
-import type { App } from 'interface/src/facture'
-import type { notifyError, notifySuccess } from 'lib/src/main'
+import type { App } from 'interface'
+import type { notifyError, notifySuccess } from 'lib'
 import type saveServiceFactory from '../service/save'
 import type loadServiceFactory from '../service/load'
 
 type Deps = {
-    saveService: (typeof saveServiceFactory) extends (...args) => infer T ? T : typeof saveServiceFactory;
-    loadService: (typeof loadServiceFactory) extends (...args) => infer T ? T : typeof loadServiceFactory;
+    saveService: ReturnType<typeof saveServiceFactory>;
+    loadService: ReturnType<typeof loadServiceFactory>;
     success: typeof notifySuccess;
     error: typeof notifyError;
 }

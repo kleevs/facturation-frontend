@@ -1,4 +1,4 @@
-import type { remove } from 'lib/src/main'
+import type { remove } from 'lib'
 
 type Deps = {
   removeAjax: typeof remove;

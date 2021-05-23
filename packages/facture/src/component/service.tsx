@@ -1,5 +1,5 @@
-import type { App } from 'interface/src/facture'
-import type { Textarea, Numberfield, preventDefault } from 'lib/src/main'
+import type { App } from 'interface'
+import type { Textarea, Numberfield, preventDefault } from 'lib'
 import React, { useState } from 'react';
 import styled from 'styled-components'
 
