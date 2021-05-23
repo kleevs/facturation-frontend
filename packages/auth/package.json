@@ -5,6 +5,7 @@
   "author": {
     "name": ""
   },
+  "main": "dist/main.js",
   "scripts": {
     "build": "rimraf dist && rollup -c"
   },

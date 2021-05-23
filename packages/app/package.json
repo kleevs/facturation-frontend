@@ -5,6 +5,10 @@
   "author": {
     "name": ""
   },
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "rimraf dist && rollup -c"
+  },
   "dependencies": {
     "lib": "^0.0.1",
     "facture": "^0.0.1"

@@ -1,6 +1,6 @@
 import type { App } from 'interface/src/facture'
 import type Layout from './layout'
-import type { FactureComponent } from 'facture/src/main'
+import type { FactureComponent } from 'facture'
 import React from 'react'
 
 type Deps = {
