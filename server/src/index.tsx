@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { render } from "react-dom";
-import { AppFactureComponent } from 'app'
-import { SigninComponent } from 'auth'
+import { AppFactureComponent } from 'webapp'
+// import { SigninComponent } from 'auth'
 
 function App({}: {}) {
     const [slide, onSlide] = useState(0)

@@ -10,16 +10,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|ts)x?$/,
+        test: /\.(ts)x?$/,
         exclude: /node_modules/,
         use: {
           loader: 'ts-loader',
         },
       },
     ],
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   devServer: {
     contentBase: path.resolve(__dirname, '.'),
