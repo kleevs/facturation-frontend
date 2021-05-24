@@ -12,27 +12,28 @@ const Container = styled.div`
     flex-direction: column;
     height: 100%;
 `
-const Header = styled.nav`
+const Nav = styled.nav`
     display: flex;
+    border-bottom: solid lightgrey;
 `
 const Body = styled.div`
     flex-grow: 1;
 `
-const BackBtn = styled.button`
+const BackBtn = styled.span`
+    border-top: solid black;
+    border-left: solid black;
+    transform: rotate(-45deg);
     display: inline-block;
-    width: 3.6rem;
-    height: 3.6rem;
-    border: 2px solid transparent;
+    width: 0.8rem;
+    height: 0.8rem;
+    background-color: transparent;
+    margin: 5px;
+`
+const Header = styled.div`
+    height: 2.4rem;
 `
 
-const Title = styled.div`
-    display: inline-block;
-    height: 3.6rem;
-    flex-grow: 1;
-    text-align: center;
-    padding: 1.2rem;
-    box-sizing: border-box;
-`
+const BackHeaderContainer = styled.span``
 
 export default ({FactureComponent}: Deps) => 
 function Facture({ account, value, onChange, readonly, slide, onSlide }: {
@@ -44,9 +45,15 @@ function Facture({ account, value, onChange, readonly, slide, onSlide }: {
     onSlide: (v: number) => void;
 }) {
     return <Container>
+        <Nav>
+            <BackBtn/>
+        </Nav>
         <Header>
-            {<BackBtn type='button' onClick={() => onSlide(Math.max(slide-1, 0))}>Retour</BackBtn>}
-            <Title>mFacture</Title>
+            <BackHeaderContainer onClick={() => onSlide(Math.max(slide-1, 0))}>
+                {slide === 0 && <>Nouvelle factue</> || <BackBtn/>}
+                {slide === 1 && 'Vos informations' || 
+                slide === 2 && 'Services et marchandises'}
+            </BackHeaderContainer>
         </Header>
         <Body>
             <FactureComponent slide={slide} onSlide={onSlide} account={account} value={value} onChange={onChange} readonly={readonly} />
