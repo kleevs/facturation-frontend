@@ -9,6 +9,7 @@ import DropdownFactory from './ui/dropdown'
 import DatefieldFactory from './ui/datefield'
 import TextareaFactory from './ui/textarea'
 import ModalFactory from './ui/modal'
+import CardFactory from './ui/card'
 import { parseDate, dateToString, formatDate } from './tool/date'
 import getFactory from './ajax/get'
 export { post } from './ajax/post'
@@ -26,6 +27,7 @@ export const Dropdown = DropdownFactory()
 export const Datefield = DatefieldFactory({ parseDate, dateToString })
 export const Textarea = TextareaFactory()
 export const Modal = ModalFactory({ createPortal, modalContainer: () => document.body })
+export const Card = CardFactory({ dateToString })
 
 toastr.options = {
     "closeButton": false,

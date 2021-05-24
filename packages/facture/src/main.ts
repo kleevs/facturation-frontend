@@ -1,6 +1,6 @@
 import { 
     post, put, get, remove as removeAjax, notifySuccess as success, notifyError as error,
-    Textfield, Dropdown, Numberfield, Textarea, preventDefault, Modal
+    Textfield, Dropdown, Numberfield, Textarea, preventDefault, Modal, Card
 } from 'lib'
 import createPaiementServiceFatory from './service/create-paiement'
 import removePaiementServiceFatory from './service/remove-paiement'
@@ -16,6 +16,7 @@ import removePaiementFatory from './action/remove-paiement'
 import createPieceJointeFatory from './action/create-piecejointe'
 import removePieceJointeFatory from './action/remove-piecejointe'
 import factureComponentFactory from './component/facture'
+import facturesComponentFactory from './component/factures'
 import serviceComponentFactory from './component/service'
 
 const loadService =  loadServiceFatory({ get })
@@ -34,3 +35,4 @@ export const createPieceJointe = createPieceJointeFatory({ createPieceJointeServ
 export const removePieceJointe = removePieceJointeFatory({ removePieceJointeService, loadService, success, error })
 export const Service = serviceComponentFactory({ Numberfield, Textarea, preventDefault })
 export const FactureComponent = factureComponentFactory({ Textfield, Service, Dropdown, preventDefault, save, Modal })
+export const FacturesComponent = facturesComponentFactory({ Card })
