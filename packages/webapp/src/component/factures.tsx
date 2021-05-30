@@ -1,10 +1,12 @@
 import type { App } from 'interface/src/facture'
 import type { FacturesComponent } from 'facture'
-import React from 'react'
+import type loadFactures from '../service/load-factures'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 type Deps = {
     FacturesComponent: typeof FacturesComponent;
+    loadFactures: ReturnType<typeof loadFactures>;
 }
 
 const Container = styled.div`
@@ -30,16 +32,20 @@ const BackBtn = styled.span`
     margin: 5px;
 `
 
-export default ({FacturesComponent}: Deps) => 
-function Factures({ value }: {
-    value: App.Facture[];
-}) {
+export default ({FacturesComponent, loadFactures}: Deps) => 
+function Factures() {
+    const [factures, setFactures] = useState<App.Facture[]>([]);
+
+    useEffect(() => {
+        loadFactures().then(setFactures)
+    }, [])
+    
     return <Container>
         <Nav>
             <BackBtn/>
         </Nav>
         <Body>
-            <FacturesComponent value={value} />
+            <FacturesComponent value={factures} />
         </Body>
     </Container>
 }
