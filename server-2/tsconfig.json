@@ -16,7 +16,8 @@
       "node_modules/@types",
       "types"
     ],
-    "paths": {},
+    "paths": {
+    },
     "lib": [
       "es2018",
       "dom"
