@@ -1,6 +1,6 @@
 import type { App } from 'interface'
 import type { FactureComponent } from 'facture'
-import type { loadAccount } from 'auth'
+import type { loadAccount } from 'account'
 import type loadFacture from '../service/load-facture'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'

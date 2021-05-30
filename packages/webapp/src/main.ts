@@ -4,7 +4,8 @@ import AppSigninComponentFactory from './component/signin'
 import loadFacturesFactory from './service/load-factures'
 import loadFactureFactory from './service/load-facture'
 import { FactureComponent, FacturesComponent } from 'facture'
-import { SigninComponent, loadAccount } from 'auth'
+import { SigninComponent } from 'auth'
+import { loadAccount } from 'account'
 
 const loadFactures = loadFacturesFactory();
 const loadFacture = loadFactureFactory();
