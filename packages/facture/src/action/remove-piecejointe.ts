@@ -1,7 +1,7 @@
 import type { App } from 'interface'
 import type { notifyError, notifySuccess } from 'lib'
 import type removePieceJointeServiceFactory from '../service/remove-piecejointe'
-import type loadServiceFactory from '../service/load'
+import type loadServiceFactory from '../service/load-facture'
 
 type Deps = {
     removePieceJointeService: ReturnType<typeof removePieceJointeServiceFactory>;

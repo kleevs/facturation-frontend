@@ -1,7 +1,7 @@
 import type { App } from 'interface'
 import type { notifyError, notifySuccess } from 'lib'
 import type createPieceJointeServiceFactory from '../service/create-piecejointe'
-import type loadServiceFactory from '../service/load'
+import type loadServiceFactory from '../service/load-facture'
 
 type Deps = {
     createPieceJointeService: ReturnType<typeof createPieceJointeServiceFactory>;

@@ -10,8 +10,9 @@ type Deps = {
 const Container = styled.div``
 
 export default ({Card}: Deps) =>
-function FacturesComponent({ value }: {
+function FacturesComponent({ value, onClick }: {
     value: App.Facture[];
+    onClick: (facture: App.Facture) => void;
 }) {
     return <Container>
         {value.map(facture => <Card 
@@ -21,6 +22,7 @@ function FacturesComponent({ value }: {
             price={facture.services.map(service => service.price * service.quantity * (100 + service.tva) / 100)
                 .reduce((a, b) => a + b, 0)
             }
+            onClick={() => onClick(facture)}
         />)}
     </Container>
 }

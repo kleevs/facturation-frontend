@@ -1,7 +1,7 @@
 import type { App } from 'interface'
 import type { notifyError, notifySuccess } from 'lib'
 import type saveServiceFactory from '../service/save'
-import type loadServiceFactory from '../service/load'
+import type loadServiceFactory from '../service/load-facture'
 
 type Deps = {
     saveService: ReturnType<typeof saveServiceFactory>;

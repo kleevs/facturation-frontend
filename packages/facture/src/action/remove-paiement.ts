@@ -1,7 +1,7 @@
 import type { App } from 'interface'
 import type { notifyError, notifySuccess } from 'lib'
 import type removePaiementServiceFactory from '../service/remove-paiement'
-import type loadServiceFactory from '../service/load'
+import type loadServiceFactory from '../service/load-facture'
 
 type Deps = {
     removePaiementService: ReturnType<typeof removePaiementServiceFactory>

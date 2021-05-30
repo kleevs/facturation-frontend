@@ -1,14 +1,13 @@
 import type { App } from 'interface'
-import type { FactureComponent } from 'facture'
+import type { FactureComponent, loadFacture } from 'facture'
 import type { loadAccount } from 'account'
-import type loadFacture from '../service/load-facture'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 type Deps = {
     FactureComponent: typeof FactureComponent;
     loadAccount: typeof loadAccount;
-    loadFacture: ReturnType<typeof loadFacture>;
+    loadFacture: typeof loadFacture;
 }
 
 const Container = styled.div`
@@ -40,20 +39,20 @@ const Header = styled.div`
 const BackHeaderContainer = styled.span``
 
 export default ({FactureComponent, loadFacture, loadAccount}: Deps) => 
-function Facture() {
+function Facture({id, onBackHome}: { id: number; onBackHome: () => void}) {
     const [readonly] = useState(false);
     const [facture, setFacture] = useState<App.Facture>(null);
     const [account, setAccount] = useState<App.Account>(null);
     const [slide, onSlide] = useState(0);
 
     useEffect(() => {
-        loadFacture().then(setFacture)
+        loadFacture(id).then(setFacture)
         loadAccount().then(setAccount)
     }, [])
 
     return <Container>
         <Nav>
-            <BackBtn/>
+            <BackBtn onClick={onBackHome}/>
         </Nav>
         <Header>
             <BackHeaderContainer onClick={() => onSlide(Math.max(slide-1, 0))}>

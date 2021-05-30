@@ -6,12 +6,13 @@ type Deps = {
 }
 
 export default ({dateToString}: Deps) =>
-function Card({date, title, price}: {
+function Card({date, title, price, ...props}: {
     date: Date;
     title: string;
     price: number;
+    onClick?: () => void;
 }) {
-    return <div>
+    return <div {...props}>
         <div>{title}</div>
         <div>{price || 0} €</div>
         <div>{dateToString(date, '')}</div>

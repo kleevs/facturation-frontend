@@ -3,7 +3,7 @@ import type { App } from 'interface'
 export default () => 
 function loadFactures(): Promise<App.Facture[]> { 
     return Promise.resolve([{
-        id: null,
+        id: 1,
         numeroFacture: '',
         raisonSociale: 'La société de test',
         lastName: 'Boss',

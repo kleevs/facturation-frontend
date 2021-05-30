@@ -5,8 +5,9 @@ import { AppFactureComponent, AppFacturesComponent, AppSigninComponent } from 'w
 
 function App() {
     return <Router>
-        <Route exact path="/" render={() => <AppFacturesComponent />} />
-        <Route exact path="/facture" render={() => <AppFactureComponent />}/>
+        <Route exact path="/" render={() => <AppFacturesComponent onClick={({ id }) => location.href = `/facture/${id}`} />} />
+        <Route exact path="/facture" render={() => <AppFactureComponent id={0} onBackHome={() => location.href = `/`} />}/>
+        <Route exact path="/facture/:id" render={(props) => <AppFactureComponent id={+props.match.params.id} onBackHome={() => location.href = `/`} />}/>
         <Route path="/signin" render={() => <AppSigninComponent />}/>
     </Router>
 }
