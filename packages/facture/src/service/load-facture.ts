@@ -5,15 +5,10 @@ type Deps = {
   get: typeof get;
 }
 
-// export default ({get}: Deps) => 
-// function load(factureId: number): Promise<App.Facture> {
-//   return get(`/api/facturation/${factureId}`)
-// }
-
 export default ({get}: Deps) => 
 function load(factureId: number): Promise<App.Facture> {
-  return Promise.resolve({
-    id: 1,
+  return factureId && get(`/api/facturation/${factureId}`) || Promise.resolve({
+    id: 0,
     numeroFacture: '',
     raisonSociale: 'La société de test',
     lastName: 'Boss',

@@ -44,7 +44,6 @@ function Facture({id, onBackHome}: { id: number; onBackHome: () => void}) {
     const [facture, setFacture] = useState<App.Facture>(null);
     const [account, setAccount] = useState<App.Account>(null);
     const [slide, onSlide] = useState(0);
-
     useEffect(() => {
         loadFacture(id).then(setFacture)
         loadAccount().then(setAccount)

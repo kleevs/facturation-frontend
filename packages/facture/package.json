@@ -7,7 +7,7 @@
     "name": ""
   },
   "scripts": {
-    "build": "rimraf dist && rollup -c"
+    "build": "rollup -c"
   },
   "dependencies": {
     "lib": "^0.0.1"

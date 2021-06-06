@@ -21,7 +21,7 @@ import facturesComponentFactory from './component/factures'
 import serviceComponentFactory from './component/service'
 
 export const loadFacture =  loadServiceFatory({ get })
-export const loadFactures =  loadFacturesFactory()
+export const loadFactures =  loadFacturesFactory({ get })
 const saveService = saveServiceFatory({ put, post })
 const removeService = removeServiceFatory({ removeAjax })
 const createPaiementService = createPaiementServiceFatory({ post })
