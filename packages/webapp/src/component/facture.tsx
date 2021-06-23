@@ -1,14 +1,8 @@
 import type { App } from 'interface'
-import type { FactureComponent, loadFacture } from 'facture'
-import type { loadAccount } from 'account'
+import { FactureComponent, loadFacture } from 'facture'
+import { loadAccount } from 'account'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
-type Deps = {
-    FactureComponent: typeof FactureComponent;
-    loadAccount: typeof loadAccount;
-    loadFacture: typeof loadFacture;
-}
 
 const Container = styled.div`
     display: flex;
@@ -38,15 +32,27 @@ const Header = styled.div`
 
 const BackHeaderContainer = styled.span``
 
-export default ({FactureComponent, loadFacture, loadAccount}: Deps) => 
-function Facture({id, onBackHome}: { id: number; onBackHome: () => void}) {
+export default 
+function Facture({id, onBackHome, redirectToSignin}: { 
+    id: number; 
+    onBackHome: () => void;
+    redirectToSignin: () => void;
+}) {
     const [readonly] = useState(false);
     const [facture, setFacture] = useState<App.Facture>(null);
     const [account, setAccount] = useState<App.Account>(null);
     const [slide, onSlide] = useState(0);
     useEffect(() => {
-        loadFacture(id).then(setFacture)
-        loadAccount().then(setAccount)
+        loadFacture(id).then(setFacture).catch(({ status }) => {
+            if (status === 401) {
+                redirectToSignin();
+            }
+        })
+        loadAccount().then(setAccount).catch(({ status }) => {
+            if (status === 401) {
+                redirectToSignin();
+            }
+        })
     }, [])
 
     return <Container>

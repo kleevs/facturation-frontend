@@ -1,12 +1,7 @@
 import type { App } from 'interface/src/facture'
-import type { FacturesComponent, loadFactures } from 'facture'
+import { FacturesComponent, loadFactures } from 'facture'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
-type Deps = {
-    FacturesComponent: typeof FacturesComponent;
-    loadFactures: typeof loadFactures;
-}
 
 const Container = styled.div`
     display: flex;
@@ -31,14 +26,19 @@ const BackBtn = styled.span`
     margin: 5px;
 `
 
-export default ({FacturesComponent, loadFactures}: Deps) => 
-function Factures({onClick}: {
-    onClick: (facture: App.Facture) => void
+export default 
+function Factures({onClick, redirectToSignin}: {
+    onClick: (facture: App.Facture) => void;
+    redirectToSignin: () => void;
 }) {
     const [factures, setFactures] = useState<App.Facture[]>([]);
 
     useEffect(() => {
-        loadFactures().then(setFactures)
+        loadFactures().then(setFactures).catch(({ status }) => {
+            if (status === 401) {
+                redirectToSignin();
+            }
+        })
     }, [])
 
     return <Container>

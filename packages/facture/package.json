@@ -2,7 +2,7 @@
   "name": "facture",
   "version": "0.0.1",
   "description": "Front",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "author": {
     "name": ""
   },

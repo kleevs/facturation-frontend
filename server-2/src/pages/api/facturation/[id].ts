@@ -1,4 +1,4 @@
-import { loadByUserId } from "src/db";
+import { loadByUserId } from "src/db/facture";
 
 export default function handler(req, res) {
     const { id } = req.query;

@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AppFactureComponent } from 'webapp'
 
 export default function ListPage() {
-    return <AppFactureComponent id={0} onBackHome={() => location.href = `/`} />
+    return <AppFactureComponent id={0} 
+        onBackHome={() => location.href = `/`} 
+        redirectToSignin={() => location.href = `/signin?redirect=${location.href}`} 
+    />
 }
