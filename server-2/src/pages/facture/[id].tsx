@@ -7,6 +7,6 @@ export default function ListPage() {
     const { id } = router.query
     return <AppFactureComponent id={+id} 
         onBackHome={() => location.href = `/`} 
-        redirectToSignin={() => location.href = `/signin?redirect=${location.href}`} 
+        redirectToSignin={() => location.href = `/signin?redirect=${location.pathname}`} 
     />
 }

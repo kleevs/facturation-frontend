@@ -10,10 +10,12 @@ const Container = styled.div`
 
 
 export default
-function AppSigninComponent() {
+function AppSigninComponent({redirectToUrl}: {
+    redirectToUrl: () => void;
+}) {
     const [value, onChange] = useState({ login: '', password: '' });
 
     return <Container>
-        <SigninComponent value={value} onChange={onChange} />
+        <SigninComponent value={value} onChange={onChange} redirectToUrl={redirectToUrl} />
     </Container>
 }

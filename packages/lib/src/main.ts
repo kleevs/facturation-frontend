@@ -1,6 +1,5 @@
 import toastr from 'toastr'
 import { createPortal } from 'react-dom'
-import axios from 'axios';
 import notifyErrorFactory from './notify/error'
 import notifySuccessFactory from './notify/success'
 import TextfieldFactory from './ui/textfield'
@@ -11,14 +10,13 @@ import TextareaFactory from './ui/textarea'
 import ModalFactory from './ui/modal'
 import CardFactory from './ui/card'
 import { parseDate, dateToString, formatDate } from './tool/date'
-import getFactory from './ajax/get'
+export { get } from './ajax/get'
 export { post } from './ajax/post'
 export { put } from './ajax/put'
 export { remove } from './ajax/remove'
 export { preventDefault } from './tool/prevent-default'
 export { parseDate, dateToString, formatDate }
 
-export const get = getFactory({ axios })
 export const notifyError = notifyErrorFactory({ toastr })
 export const notifySuccess = notifySuccessFactory({ toastr })
 export const Textfield = TextfieldFactory()

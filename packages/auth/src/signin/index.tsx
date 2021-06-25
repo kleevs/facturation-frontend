@@ -49,11 +49,12 @@ type Value = {
     password: string;
 }
 
-export default function Signin({ value, onChange }: {
+export default function Signin({ value, onChange, redirectToUrl }: {
     value: Value; 
     onChange: (value: Value) => void;
+    redirectToUrl: () => void;
 }) {
-    return <Form onSubmit={(e) => preventDefault(e, () => signin(value.login, value.password))}>
+    return <Form onSubmit={(e) => preventDefault(e, () => signin(value.login, value.password).then(redirectToUrl))}>
         <Container>
             <Title>Connexion</Title>
             <SigninTextfield data-id='login' placeholder='Email' value={value.login} onChange={(login) => onChange({ ...value, login })} />

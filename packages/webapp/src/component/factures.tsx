@@ -34,7 +34,7 @@ function Factures({onClick, redirectToSignin}: {
     const [factures, setFactures] = useState<App.Facture[]>([]);
 
     useEffect(() => {
-        loadFactures().then(setFactures).catch(({ status }) => {
+        loadFactures().then(setFactures).catch(({ status, ...arg }) => {
             if (status === 401) {
                 redirectToSignin();
             }
