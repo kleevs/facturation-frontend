@@ -9,8 +9,7 @@ const Container = styled.div`
 `
 
 
-export default
-function AppSigninComponent({redirectToUrl}: {
+export default function AppSigninComponent({redirectToUrl}: {
     redirectToUrl: () => void;
 }) {
     const [value, onChange] = useState({ login: '', password: '' });

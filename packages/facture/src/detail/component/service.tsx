@@ -48,8 +48,7 @@ const SaveBtn = styled.button`
     padding: 1rem 5rem;
 `
 
-export default 
-function ServiceComponent({ onAdd, initial, onCancel }: {
+export default function ServiceComponent({ onAdd, initial, onCancel }: {
     initial: App.IService;
     onAdd: (v: App.IService) => void;
     onCancel: () => void;

@@ -1,14 +1,13 @@
 import toastr from 'toastr'
-import { createPortal } from 'react-dom'
-import notifyErrorFactory from './notify/error'
-import notifySuccessFactory from './notify/success'
-import TextfieldFactory from './ui/textfield'
-import NumberfieldFactory from './ui/numberfield'
-import DropdownFactory from './ui/dropdown'
-import DatefieldFactory from './ui/datefield'
-import TextareaFactory from './ui/textarea'
-import ModalFactory from './ui/modal'
-import CardFactory from './ui/card'
+import notifyError from './notify/error'
+import notifySuccess from './notify/success'
+import Textfield from './ui/textfield'
+import Numberfield from './ui/numberfield'
+import Dropdown from './ui/dropdown'
+import Datefield from './ui/datefield'
+import Textarea from './ui/textarea'
+import Modal from './ui/modal'
+import Card from './ui/card'
 import { parseDate, dateToString, formatDate } from './tool/date'
 export { get } from './ajax/get'
 export { post } from './ajax/post'
@@ -17,15 +16,17 @@ export { remove } from './ajax/remove'
 export { preventDefault } from './tool/prevent-default'
 export { parseDate, dateToString, formatDate }
 
-export const notifyError = notifyErrorFactory({ toastr })
-export const notifySuccess = notifySuccessFactory({ toastr })
-export const Textfield = TextfieldFactory()
-export const Numberfield = NumberfieldFactory()
-export const Dropdown = DropdownFactory()
-export const Datefield = DatefieldFactory({ parseDate, dateToString })
-export const Textarea = TextareaFactory()
-export const Modal = ModalFactory({ createPortal, modalContainer: () => document.body })
-export const Card = CardFactory({ dateToString })
+export {
+    notifyError,
+    notifySuccess,
+    Textfield,
+    Numberfield,
+    Dropdown,
+    Datefield,
+    Textarea,
+    Modal,
+    Card
+}
 
 toastr.options = {
     "closeButton": false,

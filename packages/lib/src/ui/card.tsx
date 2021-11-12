@@ -1,12 +1,7 @@
-import type { dateToString } from '../tool/date'
+import { dateToString } from '../tool/date'
 import React from 'react'
 
-type Deps = {
-    dateToString: typeof dateToString;
-}
-
-export default ({dateToString}: Deps) =>
-function Card({date, title, price, ...props}: {
+export default function Card({date, title, price, ...props}: {
     date: Date;
     title: string;
     price: number;

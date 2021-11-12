@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default () =>
-function Textfield({value, onChange, ...props}: {
+export default function Textfield({value, onChange, ...props}: {
     value: string;
     onChange: (v: string) => void;
     placeholder?: string;

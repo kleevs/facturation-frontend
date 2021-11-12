@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 const Container = styled.div``
 
-export default
-function FacturesComponent({ value, onClick }: {
+export default function FacturesComponent({ value, onClick }: {
     value: App.Facture[];
     onClick: (facture: App.Facture) => void;
 }) {

@@ -1,4 +1,4 @@
-import type { createPortal } from 'react-dom'
+import { createPortal } from 'react-dom'
 import React from 'react'
 import styled from 'styled-components'
 const Overlay = styled.div`
@@ -18,13 +18,7 @@ const Dialog = styled.div`
     background-color: rgba(255,255,255);
 `
 
-type Deps = {
-    createPortal: typeof createPortal;
-    modalContainer: () => HTMLElement;
-}
-
-export default ({modalContainer, createPortal}: Deps) =>
-function Modal({isOpened, children, ...props}: {
+export default function Modal({isOpened, children, ...props}: {
     isOpened: boolean;
     children: unknown;
     className?: string;
@@ -33,5 +27,5 @@ function Modal({isOpened, children, ...props}: {
         <Dialog {...props}>
             {children}
         </Dialog>
-    </Overlay>, modalContainer()) || <></>
+    </Overlay>, document.body) || <></>
 }

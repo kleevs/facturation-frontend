@@ -32,8 +32,7 @@ const Header = styled.div`
 
 const BackHeaderContainer = styled.span``
 
-export default 
-function Facture({id, onBackHome, redirectToSignin}: { 
+export default function Facture({id, onBackHome, redirectToSignin}: { 
     id: number; 
     onBackHome: () => void;
     redirectToSignin: () => void;

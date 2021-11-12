@@ -1,13 +1,7 @@
-import type { parseDate, dateToString, formatDate } from '../tool/date'
+import { parseDate, dateToString, formatDate } from '../tool/date'
 import React, { useState } from 'react'
 
-type Deps = {
-    parseDate: typeof parseDate;
-    dateToString: typeof dateToString;
-}
-
-export default ({parseDate, dateToString}: Deps) =>
-function Datefield({value, onChange, ...props}: {
+export default function Datefield({value, onChange, ...props}: {
     value: Date;
     onChange: (v: Date) => void;
     placeholder?: string;
@@ -16,7 +10,7 @@ function Datefield({value, onChange, ...props}: {
 }) {
     const [state, setState] = useState('');
     
-    return <input {...props} value={dateToString(value, state)} onChange={(e) => { 
+    return <input {...props} value={formatDate(dateToString(value, state))} onChange={(e) => { 
         const str = e.target.value;
         setState(str)
         onChange(parseDate(str))

@@ -1,7 +1,7 @@
 import type { App } from 'interface'
 
-export default function loadAccount(): Promise<App.Account> {
-  return Promise.resolve({
+export default async function loadAccount(): Promise<App.Account> {
+  return {
     city: 'Ville',
     complement: '',
     country: 'France',
@@ -14,5 +14,5 @@ export default function loadAccount(): Promise<App.Account> {
     numTva: '987654321',
     siret: '12332198700013',
     phone: '0912345634'
-  });
+  };
 }

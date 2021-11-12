@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default () =>
-function Dropdown<T extends { label: string; id: number }>({value, onChange, options, ...props}: {
+export default function Dropdown<T extends { label: string; id: number }>({value, onChange, options, ...props}: {
     value: T;
     onChange: (v: T) => void;
     options: T[];

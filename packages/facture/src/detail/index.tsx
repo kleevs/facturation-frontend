@@ -160,8 +160,7 @@ const modePaiements = [
     {id: 5, label: "Autre"}
 ];
 
-export default 
-function FactureComponent({ account, value, onChange, readonly, slide, onSlide }: {
+export default function FactureComponent({ account, value, onChange, readonly, slide, onSlide }: {
     account: App.Account;
     value: App.Facture;
     onChange: (v: App.Facture) => void;

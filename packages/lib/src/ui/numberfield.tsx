@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default () =>
-function Numberfield({value, onChange, ...props}: {
+export default function Numberfield({value, onChange, ...props}: {
     value: number;
     onChange: (v: number) => void;
     placeholder?: string;

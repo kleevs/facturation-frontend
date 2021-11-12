@@ -1,0 +1,11 @@
+{
+    "scripts": {
+      "start": "next start"
+    },
+    "dependencies": {
+      "next": "9.5.3",
+      "react": "16.13.1",
+      "react-dom": "16.13.1",
+      "http-proxy-middleware": "^1.0.6"
+    }
+  }

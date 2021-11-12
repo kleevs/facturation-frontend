@@ -26,8 +26,7 @@ const BackBtn = styled.span`
     margin: 5px;
 `
 
-export default 
-function Factures({onClick, redirectToSignin}: {
+export default function Factures({onClick, redirectToSignin}: {
     onClick: (facture: App.Facture) => void;
     redirectToSignin: () => void;
 }) {
