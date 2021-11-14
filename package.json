@@ -7,10 +7,10 @@
     "name": ""
   },
   "scripts": {
-    "build": "yarn workspace server-2 run build",
-    "dev": "yarn workspace server run dev",
-    "dev2": "yarn workspace server-2 run dev",
-    "db": "yarn workspace server-2 run db"
+    "build": "yarn workspaces foreach -t --include webapp run build",
+    "dev": "yarn run build && yarn workspace server run dev",
+    "dev2": "yarn run build && yarn workspace server-2 run dev",
+    "db": "yarn run build && yarn workspace server-2 run db"
   },
   "devDependencies": {
     "@types/node": "14.14.2",
