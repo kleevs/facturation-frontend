@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-export function remove<T>(uri: string): Promise<T> {
-    return axios.delete(uri)
-    .catch(e => { throw e?.response?.data; })
-    .then(_ => _.data);
+export async function remove<T>(uri: string): Promise<T> {
+    try {
+        const response = await axios.delete(uri);
+        return response.data;
+    } catch (e) {
+        throw e?.response?.data;
+    }
 }

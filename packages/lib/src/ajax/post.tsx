@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-export function post<T, TData>(uri: string, data: TData): Promise<T> {
-    return axios.post(uri, data)
-    .catch(e => { throw e?.response?.data; })
-    .then(_ => _.data);
+export async function post<T, TData>(uri: string, data: TData): Promise<T> {
+    try {
+        const response = await axios.post(uri, data);
+        return response.data;
+    } catch (e) {
+        throw e?.response?.data;
+    }
 }

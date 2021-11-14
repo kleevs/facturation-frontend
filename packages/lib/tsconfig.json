@@ -2,7 +2,7 @@
     "compileOnSave": false,
     "compilerOptions": {
       "baseUrl": ".",
-      "declarationDir": "dist",
+      "outDir": "dist",
       "experimentalDecorators": true,
       "sourceMap": false,
       "declaration": true,

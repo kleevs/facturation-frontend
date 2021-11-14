@@ -5,10 +5,11 @@
   "author": {
     "name": ""
   },
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "rimraf dist && rollup -c"
+    "clean": "rimraf dist",
+    "build": "tsc"
   },
   "dependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
