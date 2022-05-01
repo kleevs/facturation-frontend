@@ -1,13 +1,15 @@
 import { preventDefault, Store } from 'lib'
 import React, { useCallback } from 'react';
-import { AccountType, PageAccountData, saveAccount } from 'account-page';
+import { Account, PageAccountData, saveAccount } from 'account-page';
 import { useSelector } from '../hooks/use-selector'
+import { useUserSession } from '../hooks/use-user-session';
 
 export function Account({ pageData }: {
     pageData: Store<PageAccountData>;
 }) {
+    useUserSession(pageData, true);
     const account = useSelector(pageData, ({ account }) => account);
-    const onChange = useCallback((account: AccountType) => pageData.update(current => ({...current, account})), [pageData])
+    const onChange = useCallback((account: Account) => pageData.update(current => ({...current, account})), [pageData])
 
     return <form className="container-fluid" onSubmit={(e) => preventDefault(e, () => saveAccount(pageData))}>
         <div className="row">

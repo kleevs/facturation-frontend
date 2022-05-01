@@ -2,6 +2,7 @@ import { preventDefault, Store, Textfield } from 'lib'
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { PageAuthData, signin } from 'auth-page'
+import { useUserSession } from '../hooks/use-user-session';
 
 export const SigninTextfield = styled(Textfield)`
     box-sizing: border-box;
@@ -53,6 +54,7 @@ const Container = styled.div`
 export function Auth({ pageData }: {
     pageData: Store<PageAuthData>;
 }) {
+    useUserSession(pageData, false);
     const [value, onChange] = useState({ login: '', password: '' });
 
     return <Container>

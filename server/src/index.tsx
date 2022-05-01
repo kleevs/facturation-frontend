@@ -12,7 +12,8 @@ function createAppData(): PageFactureListData & PageAccountData & PageAuthData {
         meta: {
             uri: {
                 domain: {
-                    factureDetail: (id) => `/facture/${id}`
+                    factureDetail: (id) => `/facture/${id}`,
+                    signin: (redirect) => `/signin?redirect=${redirect}`
                 },
                 api: {
                     facturation: `/api/facturation`,
@@ -27,7 +28,10 @@ function createAppData(): PageFactureListData & PageAccountData & PageAuthData {
                 signinSuccessfull: "Connexion effectué"
             }
         },
-        href: "",
+        userSession: {
+            isConnected: false
+        },
+        href: location.pathname,
         notifications: [],
         factures: [],
         account: {} as AccountType,

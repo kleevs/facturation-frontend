@@ -3,6 +3,14 @@ export type Notification = {
     message: string;
 }
 
+type ApiUri = {
+    signin: string;
+}
+
+type Uri = {
+    signin: (redirect: string) => string;
+}
+
 type MetaPageData<TUri, TApiUri, TTraduction> = {
     meta: {
         uri: { 
@@ -17,6 +25,15 @@ export type NotifiablePageData = {
     notifications: Notification[];
 }
 
-export type PageData<TUri, TApiUri, TTraduction> = NotifiablePageData & MetaPageData<TUri, TApiUri, TTraduction> & {
+export type SessionPage = HrefPage & MetaPageData<Uri, ApiUri, {}> & {
+    userSession: {
+        isConnected: boolean;
+    }
+}
+
+export type HrefPage = {
     href: string;
+}
+
+export type PageData<TUri, TApiUri, TTraduction> = HrefPage & SessionPage & NotifiablePageData & MetaPageData<TUri, TApiUri, TTraduction> & {
 }
