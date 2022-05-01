@@ -15,6 +15,7 @@ export { put } from './ajax/put'
 export { remove } from './ajax/remove'
 export { preventDefault } from './tool/prevent-default'
 export { parseDate, dateToString, formatDate }
+export * from './tool/store';
 
 export {
     notifyError,

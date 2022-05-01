@@ -2495,6 +2495,11 @@ atob@^2.1.2:
   resolved "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+auth@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/auth/-/auth-0.0.1.tgz#8f27c1b0283f34fd355f69e978a9db8733e28bbf"
+  integrity sha1-jyfBsCg/NP01X2npeKnbhzPii78=
+
 axios@0.21.0, axios@^0.21.0:
   version "0.21.0"
   resolved "https://registry.npmjs.org/axios/-/axios-0.21.0.tgz"
@@ -9343,6 +9348,11 @@ web-vitals@0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/web-vitals/-/web-vitals-0.2.1.tgz"
   integrity sha512-2pdRlp6gJpOCg0oMMqwFF0axjk5D9WInc09RSYtqFgPXQ15+YKNQ7YnBBEqAL5jvmfH9WvoXDMb8DHwux7pIew==
+
+webapp@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/webapp/-/webapp-0.0.1.tgz#fce939e821b4efeb79456554e2ece37f8055b492"
+  integrity sha1-/Ok56CG07+t5RWVU4uzjf4BVtJI=
 
 webidl-conversions@^4.0.2:
   version "4.0.2"

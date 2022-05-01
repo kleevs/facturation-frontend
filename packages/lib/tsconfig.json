@@ -1,7 +1,7 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-      "watch": true,
+      "watch": false,
       "baseUrl": ".",
       "outDir": "dist",
       "experimentalDecorators": true,

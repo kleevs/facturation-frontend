@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "watch": false,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "target": "es5",
+    "jsx": "react",
+    "typeRoots": [
+      "node_modules/@types",
+      "../../node_modules/@types"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  },
+  "include": ["./src/**/*.ts", "src/pages/facture/service.tsx", "src/pages/auth.tsx", "src/pages/auth.tsx"],
+  "exclude" : [
+    "./node_modules",
+    "./dist"
+  ]
+}
