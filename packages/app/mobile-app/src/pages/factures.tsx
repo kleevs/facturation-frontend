@@ -1,7 +1,7 @@
 import { Card, Store } from 'lib'
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components'
-import { PageFactureListData, moveOnDetail, loadFactures } from 'facture-list-page'
+import { PageFactureListData, moveOnDetail } from 'facture-list-page'
 import { useSelector } from '../hooks/use-selector';
 import { useUserSession } from '../hooks/use-user-session';
 
@@ -32,10 +32,6 @@ export function Factures({ pageData }: {
 }) {
     useUserSession(pageData, true);
     const factures = useSelector(pageData, ({factures}) => factures);
-
-    useEffect(() => {
-        loadFactures(pageData);
-    }, [pageData])
 
     return <Container>
         <Nav>

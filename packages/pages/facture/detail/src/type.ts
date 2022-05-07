@@ -46,6 +46,10 @@ type Traduction = {
     saveDone: string; // "Sauvegarde effectué"
 }
 
+type Uri = {
+    home: string;
+}
+
 type ApiUri = {
     paiement: string; // /api/paiement
     piecejointe: string; // /api/piecejointe
@@ -54,6 +58,6 @@ type ApiUri = {
     piecejointeId: (factureId: number, filename: string) => string; // /api/facturation/${facture.id}/piecejointe/${filename}
 }
 
-export type PageFactureDetailData = PageData<null, ApiUri, Traduction> & {
+export type PageFactureDetailData = PageData<Uri, ApiUri, Traduction> & {
     facture: Facture;
 }

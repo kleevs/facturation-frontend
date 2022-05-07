@@ -1,3 +1,18 @@
+export interface Account {
+    readonly city: string;
+    readonly complement: string;
+    readonly country: string;
+    readonly firstName: string;
+    readonly lastName: string;
+    readonly street: string;
+    readonly userId: string;
+    readonly zipCode: string;
+    readonly email: string;
+    readonly numTva: string;
+    readonly siret: string;
+    readonly phone: string;
+}
+
 export type Notification = {
     type: 'error' | 'succcess';
     message: string;
@@ -28,6 +43,7 @@ export type NotifiablePageData = {
 export type SessionPage = HrefPage & MetaPageData<Uri, ApiUri, {}> & {
     userSession: {
         isConnected: boolean;
+        account: Account;
     }
 }
 

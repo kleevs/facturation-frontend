@@ -22,7 +22,7 @@
       "dom"
     ]
   },
-  "include": ["./src/**/*.ts", "src/pages/facture/service.tsx", "src/pages/auth.tsx", "src/pages/auth.tsx"],
+  "include": ["./src/**/*.ts", "src/pages/facture/components/service.tsx", "src/pages/auth.tsx", "src/pages/auth.tsx", "src/index.tsx"],
   "exclude" : [
     "./node_modules",
     "./dist"
